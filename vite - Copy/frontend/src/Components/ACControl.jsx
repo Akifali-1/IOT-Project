@@ -14,13 +14,13 @@ const ACControl = ({
  
 
   return (
-    <div className="cardx as ml-20 mt-2 p-3 h-[305px] rounded-[43px] text-center w-[55vw] lg:w-[25vw] sm:size-[300px]">
+    <div className="cardx as ml-20 mt-2 p-3 h-[305px] rounded-[43px] text-center w-[400px] lg:w-[25vw] sm:size-[300px] ">
       <h2 className="text-lg flex justify-center font-semibold text-gray-800 dark:text-white mb-3">
         <span className="ac">
           <img
             src={ac}
             alt="Air Conditioner icon"
-            className="w-8 opacity-70 mr-5 bg-slate-200 rounded-[14px] p-[5px]"
+            className="w-8 opacity-70 mr-5 dark:opacity-25 bg-slate-200 rounded-[14px] p-[5px]"
           />
         </span>
         Air Conditioner

@@ -149,6 +149,7 @@ const Dashboard = () => {
           }
         `}
       </style>
+      
       <LeftSection
         userName={userName}
         selectedRoom={selectedRoom}
@@ -173,7 +174,7 @@ const Dashboard = () => {
         >
           {renderRoom()}
         </div>
-        <div className="r:block hidden sm:hidden md:hidden tb:hidden lg:w-full lg:mx-auto lg:flex lg:justify-center lg:mt-3">
+        <div className="sm:hidden md:hidden tb:hidden lg:w-full lg:mx-auto lg:flex lg:justify-center lg:mt-3">
           <Temp />
         </div>
       </div>

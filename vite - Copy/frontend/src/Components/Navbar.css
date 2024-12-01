@@ -278,3 +278,10 @@ opacity: 100%;
   border: 1.5px solid rgba(255, 255, 255, 0.1);
  
 }
+@media screen and (max-width: 1025px) {
+  .dark .navdark{
+    backdrop-filter: none;
+    background-color: rgb(1, 1, 55);
+  
+  }
+}

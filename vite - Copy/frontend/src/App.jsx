@@ -26,12 +26,12 @@ function AppContent({ darkMode, setDarkMode, isAuthenticated, setIsAuthenticated
 
     return (
         <>
-     <div className="bg-[#355dff69] dark:bg-gradient-to-br from-[#081229] to-[#1b1e382e] lg:hidden header shadow-[0_2px_5px_rgba(0,0,0,0.1)] fixed top-0 z-2 ">
+     <div className="bg-[#355dff69] dark:bg-gradient-to-br from-[#081229] to-[#1b1e382e] lg:!bg-transparent lg:shadow-transparent lg:!-ml-[33vw]  lg:mt-[10px] header shadow-[0_2px_5px_rgba(0,0,0,0.1)] fixed top-0 z-2 ">
 
 
                 <button
                     onClick={() => setDarkMode(!darkMode)}
-                    className="p-2 absolute right-0 bg-slate-300 dark:bg-slate-600 border rounded text-xs my-2 mx-2 dark:text-white"
+                    className="p-2 absolute right-0 bg-slate-300 dark:bg-slate-600 border rounded text-xs my-2 mx-2 dark:text-white dark:opacity-55"
                 >
                     Dark Mode
                 </button>
