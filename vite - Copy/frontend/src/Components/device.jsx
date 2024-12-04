@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaLightbulb, FaFan, FaFireAlt, FaSnowflake, FaTv, FaWarehouse } from 'react-icons/fa'; // Import icons
+import { FaLightbulb, FaFan, FaFireAlt, FaSnowflake, FaTv, FaWarehouse,FaTemperatureHigh , FaVolumeUp, FaCamera } from 'react-icons/fa'; // Import icons
 
 function Device() {
     const allowedRooms = ['bedroom', 'kitchen', 'living room', 'livingroom', 'outdoor'];
@@ -7,7 +7,7 @@ function Device() {
 
     const handleAddDevice = async (deviceType) => {
         const selectedRoom = prompt(`Enter the room name to add the ${deviceType} (e.g., 'Living Room', 'Bedroom', 'Kitchen'):`);
-        
+
         if (selectedRoom) {
             const normalizedRoom = selectedRoom.trim().toLowerCase();
             if (!allowedRooms.includes(normalizedRoom)) {
@@ -44,6 +44,44 @@ function Device() {
         { name: 'Air Conditioner', icon: <FaSnowflake color="#00BFFF" size="2em" /> },
         { name: 'Refrigerator', icon: <FaWarehouse color="#8A2BE2" size="2em" /> },
         { name: 'Television', icon: <FaTv color="#32CD32" size="2em" /> },
+
+
+        { name: 'Speaker', icon: <FaVolumeUp color="#FF6347" size="2em" /> },
+        { name: 'Camera', icon: <FaCamera color="#FF69B4" size="2em" /> },
+        { name: 'Thermostat', icon: <FaTemperatureHigh color="#FF8C00" size="2em" /> },
+
+        {
+            name: 'Washing Machine', icon: (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 64 64"
+                    width="2em"
+                    height="2em"
+                >
+
+                    <rect x="10" y="8" width="44" height="48" rx="4" ry="4" fill="#00CED1" stroke="#008B8B" strokeWidth="2" />
+
+
+                    <rect x="12" y="10" width="40" height="8" fill="#008B8B" />
+
+                    {/* <!-- Buttons on Control Panel --> */}
+                    <circle cx="18" cy="14" r="2" fill="#FFFFFF" />
+                    <circle cx="24" cy="14" r="2" fill="#FFFFFF" />
+                    <circle cx="30" cy="14" r="2" fill="#FFFFFF" />
+
+                    {/* <!-- Drum Outer --> */}
+                    <circle cx="32" cy="34" r="14" fill="#FFFFFF" stroke="#008B8B" strokeWidth="2" />
+
+                    {/* <!-- Drum Inner --> */}
+                    <circle cx="32" cy="34" r="8" fill="#00CED1" stroke="#008B8B" strokeWidth="1" />
+
+                    {/* <!-- Inner Details --> */}
+                    <circle cx="32" cy="34" r="2" fill="#FFFFFF" />
+                </svg>
+            )
+        },
+
+
     ];
 
     return (
@@ -56,7 +94,7 @@ function Device() {
                 {devices.map((device, index) => (
                     <div key={index} className="bg-white p-4 shadow-md rounded text-center">
                         <div className="flex justify-center mb-2 opacity-80">{device.icon}</div> {/* Display the icon */}
-                        
+
                         <h2 className="font-semibold text-lg mb-2">{device.name}</h2>
                         <button
                             onClick={() => handleAddDevice(device.name)}

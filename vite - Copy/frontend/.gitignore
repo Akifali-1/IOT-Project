@@ -7,10 +7,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # Dependency directories
-<<<<<<< HEAD
-=======
 node_modules/
->>>>>>> d510310d92c9ab160cf506a1f74d57de899ee542
 node_modules/
 dist/
 

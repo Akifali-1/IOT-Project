@@ -26,7 +26,7 @@ function AppContent({ darkMode, setDarkMode, isAuthenticated, setIsAuthenticated
 
     return (
         <>
-     <div className="bg-[#355dff69] dark:bg-gradient-to-br from-[#081229] to-[#1b1e382e] lg:!bg-transparent lg:shadow-transparent lg:!-ml-[33vw]  lg:mt-[10px] header shadow-[0_2px_5px_rgba(0,0,0,0.1)] fixed top-0 z-2 ">
+     <div className="bg-[#355dff69] dark:bg-gradient-to-br from-[#081229] to-[#1b1e382e] lg:!bg-transparent lg:shadow-transparent lg:!-ml-[33vw]  lg:mt-[35px] header shadow-[0_2px_5px_rgba(0,0,0,0.1)] fixed top-0 z-2 ">
 
 
                 <button

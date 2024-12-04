@@ -35,13 +35,13 @@ const ACControl = ({
       <div className="flex justify-center mb-4 space-x-4">
         <button
           onClick={decreaseTemperature}
-          className="px-4 py-2 dark:text-indigo-500 dark:bg-[#ffffff20] dark:hover:bg-[#ffffffda] text-blue-700 bg-blue-100 rounded-full hover:bg-blue-200 transition"
+          className="px-4 py-2 dark:text-white dark:bg-[#ffffff20] dark:hover:bg-[#ffffff8c] text-blue-700 bg-blue-100 rounded-full hover:bg-blue-200 transition"
         >
           -
         </button>
         <button
           onClick={increaseTemperature}
-          className="px-4 py-2 dark:text-indigo-500 dark:bg-[#ffffff20] dark:hover:bg-[#ffffffda] text-blue-700 bg-blue-100 rounded-full hover:bg-blue-200 transition"
+          className="px-4 py-2 dark:text-white dark:bg-[#ffffff20] dark:hover:bg-[#ffffff94] text-blue-700 bg-blue-100 rounded-full hover:bg-blue-200 transition"
         >
           +
         </button>

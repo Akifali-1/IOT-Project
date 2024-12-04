@@ -8,18 +8,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        'custom-blue': '#081229', // Add your custom color
+        'custom-blue': '#081229',
       },
       screens: {
         'sm': { 'max': '400px' },      // Mobile: Up to 767px
         // Large screens starting at 769px
-        'tb': { 'max': '700px' }, 
+        'tb': { 'max': '768px' },
         // Mobile: Up to 767px
-        'r': { 'min': '699px','max':'668' }, 
+        'r': { 'min': '699px', 'max': '668' },
 
 
       },
     },
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+
+    },
   },
   plugins: [],
-}
+};

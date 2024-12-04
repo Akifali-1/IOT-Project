@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchDevices, toggleDevice, addDevice, removeDevice } from './deviceUtils';
 import { initializeWebSocket, subscribeToMessages } from './websocketUtils';
 import fan from '../assets/fan-tan.png'
+
 import light from '../assets/idea.png'
 import heater from '../assets/heater.png'
 import ac from '../assets/air-conditioner.png'
@@ -14,14 +15,14 @@ function LivingRoom() {
     const [devices, setDevices] = useState([]);
     const [deviceStates, setDeviceStates] = useState({});
     const [newDevice, setNewDevice] = useState('');
-    const allowedDevices = ['fan', 'light', 'ac', 'heater','Television'];
+    const allowedDevices = ['fan', 'light', 'ac', 'heater', 'Television'];
 
     const deviceImages = {
         fan: fan,
         light: light,
         ac: ac,
         heater: heater,
-        Television: tv,
+        television: tv,
     };
 
 
