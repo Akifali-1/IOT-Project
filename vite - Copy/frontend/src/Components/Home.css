@@ -705,10 +705,10 @@ main{
         display: none;
     }
     .H1{
-        font-size: large;
+        font-size: 1.3rem;
     }
     .H2{
-        font-size: 0.85rem;
+        font-size: 0.9rem;
     }
     .joinbtn{
         font-size: medium;
@@ -739,11 +739,11 @@ main{
     }
     .card2{
         height: auto;
-        width: 90vw;
+        width: 78vw;
     }
     .card22{
         width: 80vw;
-        height: 80vhvh;
+        height: 70vh;
         border: none;
     }
     .card21{
