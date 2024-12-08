@@ -3,22 +3,6 @@ import { Link } from 'react-router-dom';
 import './Home.css';
 
 const Home = ({ isAuthenticated }) => {
-    const messages = [
-        "a seamless experience.",
-        "an effortless journey.",
-        "unmatched simplicity.",
-        "everyday ease."
-    ];
-
-    const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentMessageIndex((prevIndex) => (prevIndex + 1) % messages.length);
-        }, 2500);
-
-        return () => clearInterval(interval);
-    }, [messages.length]);
     return (
         <>
             <div className="head">
@@ -37,20 +21,22 @@ const Home = ({ isAuthenticated }) => {
                         <Link to="/signup">
                             <button className='home-button'>Sign Up</button>
                         </Link>
+                        <Link to="/guest_login">
+                            <button className='home-button'>Guest's Login</button>
+                        </Link>
                     </div>
                 </div>
-
                 <div className='second'>
                     
-                    <div className='H1 dark:text-white'>MAKE YOUR LIFE MORE COMFORTABLE</div>
+                    <div className='H1'>MAKE YOUR LIFE MORE COMFORTABLE</div>
 
-                    <div className='H2 dark:text-slate-400'>
-                        Transforming comfort into {messages[currentMessageIndex]}
+                    <div className='H2'>
+                        Transforming comfort into a seamless experience.
                     </div>
                     <div className="card1">
                         <div className="card2">
                             <div className="card21"></div>
-                            <div className="card22"></div>
+                            <img src="src/assets/dashboard_mobile.jpg" className='card22' alt="" />
                         </div>
                     </div>
                     <Link to="/guest_login">
@@ -63,9 +49,7 @@ const Home = ({ isAuthenticated }) => {
                             <div className="containerleft">
                                 Effortlessly control your surroundings with our IoT-based voice automation system. From home to office, hotel, or outdoor spaces, manage lighting, security, and climate with a simple command. Experience the ease and convenience of a smart, responsive environment tailored to your daily life.
                             </div>
-                            <div className="containeright">
-                                {/* <img src="C:\Users\Mukarram Uddin\OneDrive\Desktop\Project\git-G160\vite - Copy\frontend\src\assets\image1.png.jpg" className='image1' alt="" /> */}
-                            </div>
+                            <img src="src/assets/image1.jpg" className='containeright' alt="iot image" />
                         </div>
                     </div>
 
@@ -104,7 +88,7 @@ const Home = ({ isAuthenticated }) => {
                     </div>
                 </div>
                 <div className="fourth dark:bg-violet-900">
-                    <div className="top4 dark:text-white">You will gain access to...</div>
+                    <div className="top4">You will gain access to...</div>
 
                     <div className="body4">
                         <div className="grid">
@@ -115,7 +99,8 @@ const Home = ({ isAuthenticated }) => {
                                 <div className="itembody">
                                     Seamlessly control your home appliances, such as fans, lights, and AC, through voice commands or mobile access.
                                 </div>
-                                <div>
+
+                                <div className='buttons'>
                                     <Link to="/signup">
                                         <button className='btn1'>Get Access</button>
                                     </Link >
@@ -133,7 +118,7 @@ const Home = ({ isAuthenticated }) => {
                                 <div className="itembody">
                                     Monitor your appliance usage history to optimize performance and save energy
                                 </div>
-                                <div>
+                                <div className='buttons'>
                                     <Link to="/signup">
                                         <button className='btn1'>Get Access</button>
                                     </Link>
@@ -151,7 +136,7 @@ const Home = ({ isAuthenticated }) => {
                                 <div className="itembody">
                                     Access real-time temperature insights to make informed decisions on device usage.
                                 </div>
-                                <div>
+                                <div className='buttons'>
                                     <Link to="/signup">
                                         <button className='btn1'>Get Access</button>
                                     </Link>

@@ -18,7 +18,6 @@ function Device() {
         const deviceSynonyms = {
             ac: "ac",
             'air conditioner': "ac",
-        
             airconditioner: "ac",
             fridge: "fridge",
             refrigerator: "fridge",

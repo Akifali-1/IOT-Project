@@ -14,6 +14,7 @@ import { initializeWebSocket, subscribeToMessages, sendMessage } from './websock
 
 
 const Dashboard = () => {
+  const [darkMode, setDarkMode] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState('LivingRoom');
   const [userName, setUserName] = useState('');
   const [ws, setWs] = useState(null);
@@ -36,6 +37,31 @@ const Dashboard = () => {
     Kitchen: 'kitchen',
     Outdoor: 'outdoor'
   };
+
+  useEffect(() => {
+    
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+    setDarkMode(savedDarkMode);
+
+    // Apply the dark mode class to the document
+    if (savedDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save dark mode preference to localStorage when it changes
+    localStorage.setItem('darkMode', darkMode);
+    
+    // Apply the dark mode class to the document
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
 
   useEffect(() => {
     const storedUserName = localStorage.getItem('username');
@@ -63,6 +89,7 @@ const Dashboard = () => {
         }));
         localStorage.setItem(`${formattedRoom}AcStatus`, status);
       }
+  
     });
   }, []);
 
@@ -148,7 +175,6 @@ const Dashboard = () => {
       setFanSpeed(storedFanSpeeds);
     }
 
-    const socket = initializeWebSocket();
     subscribeToMessages(({ device, status, speed, room }) => {
       const formattedRoom = Object.keys(roomMapping).find(
         (key) => roomMapping[key] === room
@@ -237,7 +263,6 @@ const Dashboard = () => {
       setLightBrightness(storedBrightness);
     }
 
-    const socket = initializeWebSocket();
     subscribeToMessages(({ device, status, brightness, room }) => {
       const formattedRoom = Object.keys(roomMapping).find(
         (key) => roomMapping[key] === room
@@ -249,10 +274,11 @@ const Dashboard = () => {
         }));
         localStorage.setItem(`${formattedRoom}LightStatus`, status);
 
-        if (brightness) {
+
+        if (brightness=="50") {
           setLightBrightness((prevBrightness) => {
-            const updatedBrightness = { ...prevBrightness, [formattedRoom]: brightness };
-            localStorage.setItem('roomLightBrightness', JSON.stringify(updatedBrightness));
+            const updatedBrightness = { ...prevBrightness, [formattedRoom]: 50 };
+            localStorage.setItem('roomLightBrightness', JSON.stringify(50));
             return updatedBrightness;
           });
         }
@@ -270,7 +296,7 @@ const Dashboard = () => {
       sendMessage({
         device: 'light',
         status: lightStatus[selectedRoom] ? 'on' : 'off',
-        brightness: 'bright',
+        brightness: '100',
         room: roomMapping[selectedRoom],
       });
 
@@ -288,7 +314,7 @@ const Dashboard = () => {
       sendMessage({
         device: 'light',
         status: lightStatus[selectedRoom] ? 'on' : 'off',
-        brightness: 'dim',
+        brightness: '50',
         room: roomMapping[selectedRoom],
       });
 
@@ -335,6 +361,16 @@ const Dashboard = () => {
 
   return (
     <div className="flex max-h-screen">
+         <div className="bg-[#355dff69] dark:bg-gradient-to-br from-[#081229] to-[#1b1e382e] lg:!bg-transparent lg:shadow-transparent lg:!-ml-[33vw]  lg:mt-[35px] header shadow-[0_2px_5px_rgba(0,0,0,0.1)] fixed top-0 z-2 ">
+
+
+<button
+    onClick={() => setDarkMode(!darkMode)}
+    className="p-2 absolute right-0 bg-slate-300 dark:bg-slate-600 border rounded text-xs my-2 mx-2 dark:text-white dark:opacity-55"
+>
+    Dark Mode
+</button>
+</div> 
       <style>
         {`
           .hide-scrollbar {
@@ -346,6 +382,7 @@ const Dashboard = () => {
           }
         `}
       </style>
+      
       <LeftSection
         userName={userName}
         selectedRoom={selectedRoom}
@@ -364,7 +401,7 @@ const Dashboard = () => {
       />
       <div className="radial w-[100%] dark:!bg-[#0e193c] flex flex-col sm:w-screen lg:w-[32vw] bg-white h-[100%] lg:h-screen fixed lg:relative p-3 ml-auto  ">
         <div className="lg:hidden mt-12  z-0">
-          <h1 className="text-[24px] ml-3 font-light dark:!text-slate-400 text-gray-800 mt-3 sm:text-[19px]">
+          <h1 className="text-[24px] ml-3 font-light dark:text-slate-400 text-gray-800 mt-3 sm:text-[19px]">
             Hey, <span className="font-bold">{userName || 'User'} 👋🏻</span> Welcome to Dashboard
           </h1>
           <Temp />

@@ -14,13 +14,13 @@ const ACControl = ({
  
 
   return (
-    <div className="cardx as ml-20 mt-2 p-3 h-[305px] rounded-[43px] text-center w-[55vw] lg:w-[25vw] sm:size-[300px]">
+    <div className="cardx as ml-20 mt-2 p-3 h-[305px] rounded-[43px] text-center w-[400px] lg:w-[25vw] sm:size-[300px] ">
       <h2 className="text-lg flex justify-center font-semibold text-gray-800 dark:text-white mb-3">
         <span className="ac">
           <img
             src={ac}
             alt="Air Conditioner icon"
-            className="w-8 opacity-70 mr-5 bg-slate-200 rounded-[14px] p-[5px]"
+            className="w-8 opacity-70 mr-5 dark:opacity-25 bg-slate-200 rounded-[14px] p-[5px]"
           />
         </span>
         Air Conditioner
@@ -35,13 +35,13 @@ const ACControl = ({
       <div className="flex justify-center mb-4 space-x-4">
         <button
           onClick={decreaseTemperature}
-          className="px-4 py-2 dark:text-indigo-500 dark:bg-[#ffffff20] dark:hover:bg-[#ffffffda] text-blue-700 bg-blue-100 rounded-full hover:bg-blue-200 transition"
+          className="px-4 py-2 dark:text-white dark:bg-[#ffffff20] dark:hover:bg-[#ffffff8c] text-blue-700 bg-blue-100 rounded-full hover:bg-blue-200 transition"
         >
           -
         </button>
         <button
           onClick={increaseTemperature}
-          className="px-4 py-2 dark:text-indigo-500 dark:bg-[#ffffff20] dark:hover:bg-[#ffffffda] text-blue-700 bg-blue-100 rounded-full hover:bg-blue-200 transition"
+          className="px-4 py-2 dark:text-white dark:bg-[#ffffff20] dark:hover:bg-[#ffffff94] text-blue-700 bg-blue-100 rounded-full hover:bg-blue-200 transition"
         >
           +
         </button>

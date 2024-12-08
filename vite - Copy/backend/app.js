@@ -129,6 +129,7 @@ app.get('/api/devices/weeklyUsage', async (req, res) => {
 });
 
 
+
 app.delete('/api/devices/clearUsage', async (req, res) => {
     try {
         await DeviceUsage.deleteMany({}); // Adjust based on your database schema
