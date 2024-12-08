@@ -5,7 +5,7 @@ const deviceSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        enum: ['fan', 'light', 'ac', 'heater','television','fridge'], // Only allowed devices
+        enum: ['fan', 'light', 'ac', 'heater','television','fridge','speaker'], // Only allowed devices
     },
     status: {
         type: String,

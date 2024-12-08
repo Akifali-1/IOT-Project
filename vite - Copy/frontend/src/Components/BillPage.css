@@ -1,270 +1,139 @@
-/* Bill page container with centered content */
-.bill-page {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 86.5vh;
-    width: 60vw;
-    box-sizing: border-box;
-    position: relative;
-    border: 2px solid #fff;
-    border-radius: 10px; 
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
-    margin: 50px 20px 20px 290px;
-    background: #fff;
-    
+/* Full page layout */
+.cartoon {
+  position: relative;
+  height: 100vh; /* Full height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  font-family: 'Arial', sans-serif;
 }
 
-.bill-page h1 {
-    color: #fff;
-    background: linear-gradient(135deg, #1e2a68,rgb(59, 169, 247));
-    border-radius: 5px;
-    text-decoration: underline #93c8f6;
-    font-size: 36px; 
-    font-weight: bold;
-    text-align: center;
-    width: 90%;
-    margin: 0;
-    margin-bottom: 10px;
-    position: absolute;
-    top: 20px;
-    left: 50%; 
-    transform: translateX(-50%);
+/* Face Container */
+.head1 {
+  height: 600px; /* Doraemon's face */
+  width: 600px;
+  background-color: #00a9e0; /* Doraemon blue */
+  border-radius: 50%;
+  left: 30%;    
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
-
-/* Form container */
-.form {
-    padding: 20px;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 400px;
-    margin-bottom: 5px;
+/* Inner Face (White) */
+.inner-face {
+  position: absolute;
+  height: 500px; /* Slightly smaller than the head */
+  width: 500px;
+  background-color: #fff;
+  border-radius: 50%;
+  z-index: 1; /* Below other elements */
 }
 
-/* Button styling */
-/* Button styling */
-.form button {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 25px;
-    font-size: 16px;
-    cursor: pointer;
-    background: linear-gradient(135deg, #1e2a68, #0f1f4e);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 100%;
-    margin-top: 15px;
-    top: 450px;
+/* Whiskers */
+.mustache {
+  position: absolute;
+  width: 200px;
+  height: 40px;
+  top: 300px;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 2; /* Above inner face */
 }
 
-.form button:hover {
-    background: linear-gradient(135deg, #142063, #0b1a44);
-    transform: scale(1.05);
+.mustache-hair {
+  position: absolute;
+  width: 80px;
+  background: black;
+  height: 2px;
 }
 
-.form button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+.mustache-left-hair { left: 0; }
+.mustache-right-hair { right: 0; }
+
+/* Adjust rotation of whiskers */
+.mustache-left-hair:nth-child(1) { top: 0; transform: rotate(20deg); transform-origin: 100% 50%; }
+.mustache-left-hair:nth-child(2) { top: 50%; transform: rotate(0deg); transform-origin: 100% 50%; }
+.mustache-left-hair:nth-child(3) { bottom: 0; transform: rotate(-20deg); transform-origin: 100% 50%; }
+.mustache-right-hair:nth-child(4) { top: 0; transform: rotate(-20deg); transform-origin: 0% 50%; }
+.mustache-right-hair:nth-child(5) { top: 50%; transform: rotate(0deg); transform-origin: 0% 50%; }
+.mustache-right-hair:nth-child(6) { bottom: 0; transform: rotate(20deg); transform-origin: 0% 50%; }
+
+/* Left and Right Eyes */
+.eye {
+  width: 120px;
+  height: 120px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 5px solid black;
+  position: absolute;
+  top: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  z-index: 2; /* Above inner face */
 }
 
-/* Remove background around "Calculate Total Bill" button */
+.left-eye { left: 140px; }
+.right-eye { right: 140px; }
 
-
-/* Result container */
-.result-container {
-    margin-top: 30px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
+/* Nose */
+.nose {
+  height: 50px;
+  width: 50px;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  top: 297px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2; /* Above inner face */
 }
 
-/* Error message */
-.error {
-    color: #f44336;
-    font-weight: bold;
-   
+.nose button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
 }
 
-/* Logs container */
-.logs-container {
-    margin-top: 30px;
-    width: 100%;
-    max-width: 500px;
-    text-align: left;
+/* Smile (Mouth) */
+.smile {
+  position: absolute;
+  bottom: 80px;
+  display: flex;
+  justify-content: center;
+  z-index: 2; /* Above inner face */
 }
 
-.logs-container h2 {
-    font-size: 22px;
-    margin-bottom: 10px;
-    color: #333;
+.smile button {
+  background-color: #ff6347;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.logs-container ul {
-    list-style: none;
-    padding: 0;
+.smile button:hover {
+  background-color: #ff4500;
 }
 
-.logs-container li {
-    background: #f9f9f9;
-    margin: 8px 0;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    font-size: 16px;
-}
-
-.logs-container li:nth-child(even) {
-    background-color: #f4f4f4;
-}
-
-.logs-container li:nth-child(odd) {
-    background-color: #ffffff;
-}
-
-.bill-page .clear-btn {
-    background-color: #ff4d4d;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 10px;
-   position: relative;
-   bottom: 20px;
-    
-}
-
-.bill-page .clear-btn:disabled {
-    background-color: #ffcccc;
-    cursor: not-allowed;
-}
-
-.bill-page .success {
-    color: green;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-.result-container .clear-btn {
-    background-color: #ff4d4d;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 15px;
-}
-
-.result-container .clear-btn:disabled {
-    background-color: #ffcccc;
-    cursor: not-allowed;
-}
-
-
-.button-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.dollar-icon {
-    font-size: 24px;
-    margin-right: 10px; 
-}
-.billcontainer {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; 
-    gap: 40px; 
-   margin-bottom: 40px;
-}
-
-/* Common styling for both divs */
-.usagediv, .Electricitydiv {
-    border: 2px;
-    border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    width: 310px; /* Adjusted size */
-    height: 195px; /* Adjusted size */
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-/* Styling for the headings inside each div */
-.usagediv .heading, .Electricitydiv .heading {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px; /* Space between heading and value */
-}
-
-/* Styling for the values inside each div */
-.usagediv .value, .Electricitydiv .value {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-}
-
-/* Clear button styling inside the result container */
-.result-container .clear-btn {
-    background-color: #70b6f8;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 20px; /* Add margin for better spacing */
-}
-
-.result-container .clear-btn:disabled {
-    background-color: #ffcccc;
-    cursor: not-allowed;
-}
-.bill-icon{
-
-    font-size: 24px;
-    margin-right: 10px; 
-}
-.energy-icon{
-    font-size: 24px;
-    margin-right: 10px; 
-}
-
-
-
-
-.result-container .heading-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px; /* Space between icon and text */
-}
-
-.result-container .heading-container .heading {
-    margin: 0;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.result-container .value {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-}
-
-.energy-icon,
-.bill-icon {
-    font-size: 24px;
-    color: #1e2a68;
+/* Disabled button state */
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }

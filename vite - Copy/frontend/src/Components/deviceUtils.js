@@ -35,7 +35,7 @@ export const toggleDevice = async (device, deviceStates, setDeviceStates, room) 
         }));
 
         // Prepare WebSocket message ;
-     
+
         const message = {
             device: device.name,
             status: newStatus,
@@ -70,14 +70,45 @@ export const toggleDevice = async (device, deviceStates, setDeviceStates, room) 
 
 
 // Add a new device to the room
-export const addDevice = async (newDevice, allowedDevices, devices, setDevices, setDeviceStates, setNewDevice, isGuest, room) => {
+// Synonym mapping for devices
+const deviceSynonyms = {
+    ac: "ac",
+    'air conditioner': "ac",
+
+    airconditioner: "ac",
+    fridge: "fridge",
+    refrigerator: "fridge",
+    tv: "television",
+    television: "television",
+    speaker: "speaker",
+    fan: "fan",
+    light: "light",
+    heater: "heater",
+};
+
+export const addDevice = async (
+    newDevice,
+    allowedDevices,
+    devices,
+    setDevices,
+    setDeviceStates,
+    setNewDevice,
+    isGuest,
+    room
+) => {
     if (isGuest) {
         console.log("Guest users cannot add devices.");
         return;
     }
 
-    const normalizedNewDevice = newDevice.toLowerCase();
-    if (normalizedNewDevice && allowedDevices.includes(normalizedNewDevice) && !devices.some((d) => d.name === normalizedNewDevice)) {
+    const normalizedNewDevice = deviceSynonyms[newDevice.trim().toLowerCase()] || newDevice.trim().toLowerCase();
+
+
+    if (
+        normalizedNewDevice &&
+        allowedDevices.includes(normalizedNewDevice) &&
+        !devices.some((d) => d.name === normalizedNewDevice)
+    ) {
         try {
             const response = await fetch("http://localhost:8080/api/devices", {
                 method: "POST",
@@ -99,9 +130,10 @@ export const addDevice = async (newDevice, allowedDevices, devices, setDevices, 
             console.error("Error adding device:", error);
         }
     } else {
-        alert("Please enter a valid device: fan, light, AC, or heater.");
+        alert("Please enter a valid device or ensure it is not already added.");
     }
 };
+
 
 // Remove a device from the room
 export const removeDevice = async (device, setDevices, setDeviceStates, isGuest) => {

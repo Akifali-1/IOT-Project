@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import Bottom from '../Components/bottom.jsx';
+
 import Room from '../Components/Room.jsx';
 import Bedroom from '../Components/Bedroom.jsx';
 import LivingRoom from '../Components/LivingRoom.jsx';
 import Kitchen from '../Components/Kitchen.jsx';
 import Outdoor from '../Components/Outdoor.jsx';
-import ACControl from '../Components/ACControl.jsx';
+
 import Temp from '../Components/temp.jsx';
-import FanControl from './Fan_Control.jsx';
-import LightControl from './LightControl.jsx';
+
 import LeftSection from './leftPC.jsx';
 import './Dashboard.css';
 import { initializeWebSocket, subscribeToMessages, sendMessage } from './websocketUtils';
-import Left from './leftMOBILE.jsx';
+
 
 const Dashboard = () => {
   const [selectedRoom, setSelectedRoom] = useState('LivingRoom');

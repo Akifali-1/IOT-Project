@@ -45,7 +45,7 @@ router.put('/:id', async (req, res) => {
             { status, lastUpdated: new Date() },
             { new: true }
         );
-
+        
         if (!updatedDevice) {
             return res.status(404).json({ message: 'Device not found' });
         }

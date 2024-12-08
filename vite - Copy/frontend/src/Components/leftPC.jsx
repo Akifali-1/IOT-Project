@@ -52,6 +52,12 @@ const LeftSection = ({
             decreaseTemperature={decreaseTemperature}
             setInitialTemperature={setInitialTemperature}
             selectedRoom={selectedRoom}
+            increaseFanSpeed={increaseFanSpeed}
+            decreaseFanSpeed={decreaseFanSpeed}
+            fanSpeed={fanSpeed}
+            increaseLightBrightness={increaseLightBrightness}
+            decreaseLightBrightness={decreaseLightBrightness}
+            lightBrightness={lightBrightness}
           />
         </div>
         <div className="LightFanControl">
@@ -61,11 +67,11 @@ const LeftSection = ({
             fanSpeed={fanSpeed}
             selectedRoom={selectedRoom}
           />
-          <LightControl 
-           increaseLightBrightness={increaseLightBrightness}
-           decreaseLightBrightness={decreaseLightBrightness}
-           lightBrightness={lightBrightness}
-           selectedRoom={selectedRoom}/>
+          <LightControl
+            increaseLightBrightness={increaseLightBrightness}
+            decreaseLightBrightness={decreaseLightBrightness}
+            lightBrightness={lightBrightness}
+            selectedRoom={selectedRoom} />
         </div>
 
       </div>

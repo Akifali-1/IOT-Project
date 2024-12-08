@@ -29,6 +29,7 @@ const Guest = () => {
     LivingRoom: 'livingroom',
     Bedroom: 'bedroom',
     Kitchen: 'kitchen',
+    Outdoor:'outdoor'
   };
 
   useEffect(() => {
@@ -41,6 +42,7 @@ const Guest = () => {
       LivingRoom: localStorage.getItem('LivingRoomAcStatus') === 'on',
       Bedroom: localStorage.getItem('BedroomAcStatus') === 'on',
       Kitchen: localStorage.getItem('KitchenAcStatus') === 'on',
+      Outdoor: localStorage.getItem('OutdoorAcStatus') === 'on',
     };
     setAcStatus(initialAcStatus);
 

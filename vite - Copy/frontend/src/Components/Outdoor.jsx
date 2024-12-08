@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { fetchDevices, toggleDevice, addDevice, removeDevice } from './deviceUtils';
 import { initializeWebSocket, subscribeToMessages } from './websocketUtils';
 import fan from '../assets/fan-tan.png'
+import fridge from '../assets/fridge.png'
+import speaker from '../assets/volume.png'
 
 import light from '../assets/idea.png'
 import heater from '../assets/heater.png'
@@ -13,7 +15,7 @@ function Outdoor() {
     const [devices, setDevices] = useState([]);
     const [deviceStates, setDeviceStates] = useState({});
     const [newDevice, setNewDevice] = useState('');
-    const allowedDevices = ['fan', 'light', 'ac', 'heater', 'Television'];
+    const allowedDevices = ['fan', 'light', 'ac', 'heater', 'television','speaker','fridge'];
 
     const deviceImages = {
         fan: fan,
@@ -21,6 +23,8 @@ function Outdoor() {
         ac: ac,
         heater: heater,
         television: tv,
+        speaker:speaker,
+        fridge:fridge
     };
 
 
@@ -76,7 +80,8 @@ function Outdoor() {
                                 strokeWidth="1.5"
                                 strokeLinecap="round"
                             />
-                        </svg> Device</div>
+                        </svg> Device
+                        </div>
                     </button>
                 </div>
             )}
@@ -110,7 +115,8 @@ function Outdoor() {
 
 
                                         }}
-                                    /></div>
+                                    />
+                                    </div>
                                 <h3 style={{ margin: '0', fontSize: '1.2rem', color: 'white' }}>
                                     {device.name.charAt(0).toUpperCase() + device.name.slice(1)}
                                 </h3>
