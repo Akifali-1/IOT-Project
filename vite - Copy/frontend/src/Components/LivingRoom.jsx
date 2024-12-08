@@ -33,14 +33,26 @@ function LivingRoom() {
 
         const socket = initializeWebSocket();
 
-        subscribeToMessages(({ device, status, room }) => {
+        subscribeToMessages(({ device, status, room, control }) => {
             if (room === 'livingroom') {
+              if (device === 'all' && control === 'off') {
+                // Turn off all devices in the living room
+                setDeviceStates((prevStates) => {
+                  const updatedStates = { ...prevStates };
+                  Object.keys(updatedStates).forEach((key) => {
+                    updatedStates[key] = false; // Set all devices to off
+                  });
+                  return updatedStates;
+                });
+              } else {
+                // Handle specific device status
                 setDeviceStates((prevStates) => ({
-                    ...prevStates,
-                    [device]: status === 'on',
+                  ...prevStates,
+                  [device]: status === 'on',
                 }));
+              }
             }
-        });
+          });
     }, []);
 
     return (

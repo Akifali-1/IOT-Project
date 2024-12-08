@@ -22,17 +22,20 @@ const Dashboard = () => {
     LivingRoom: false,
     Bedroom: false,
     Kitchen: false,
+    outdoor: false
   });
   const [temperature, setTemperature] = useState({
     LivingRoom: 16,
     Bedroom: 20,
     Kitchen: 18,
+    outdoor: 16
   });
 
   const roomMapping = {
     LivingRoom: 'livingroom',
     Bedroom: 'bedroom',
     Kitchen: 'kitchen',
+    Outdoor: 'outdoor'
   };
 
   useEffect(() => {
@@ -45,6 +48,7 @@ const Dashboard = () => {
       LivingRoom: localStorage.getItem('LivingRoomAcStatus') === 'on',
       Bedroom: localStorage.getItem('BedroomAcStatus') === 'on',
       Kitchen: localStorage.getItem('KitchenAcStatus') === 'on',
+      Outdoor: localStorage.getItem('OutdoorAcStatus') === 'on',
     };
     setAcStatus(initialAcStatus);
 
@@ -60,6 +64,7 @@ const Dashboard = () => {
         }));
         localStorage.setItem(`${formattedRoom}AcStatus`, status);
       }
+  
     });
   }, []);
 
@@ -115,6 +120,186 @@ const Dashboard = () => {
       return updatedTemps;
     });
   };
+
+  const [fanStatus, setFanStatus] = useState({
+    LivingRoom: false,
+    Bedroom: false,
+    Kitchen: false,
+    outdoor: false
+  });
+  const [fanSpeed, setFanSpeed] = useState({
+    LivingRoom: 1,
+    Bedroom: 1,
+    Kitchen: 1,
+    outdoor: 1
+  });
+
+
+
+  useEffect(() => {
+    const initialFanStatus = {
+      LivingRoom: localStorage.getItem('LivingRoomFanStatus') === 'on',
+      Bedroom: localStorage.getItem('BedroomFanStatus') === 'on',
+      Kitchen: localStorage.getItem('KitchenFanStatus') === 'on',
+      Outdoor: localStorage.getItem('OutdoorFanStatus') === 'on',
+    };
+    setFanStatus(initialFanStatus);
+
+    const storedFanSpeeds = JSON.parse(localStorage.getItem('roomFanSpeeds'));
+    if (storedFanSpeeds) {
+      setFanSpeed(storedFanSpeeds);
+    }
+
+    subscribeToMessages(({ device, status, speed, room }) => {
+      const formattedRoom = Object.keys(roomMapping).find(
+        (key) => roomMapping[key] === room
+      );
+      if (device === 'fan' && formattedRoom) {
+        setFanStatus((prevStatus) => ({
+          ...prevStatus,
+          [formattedRoom]: status === 'on',
+        }));
+        localStorage.setItem(`${formattedRoom}FanStatus`, status);
+
+        if (speed) {
+          setFanSpeed((prevSpeed) => {
+            const updatedSpeeds = { ...prevSpeed, [formattedRoom]: speed };
+            localStorage.setItem('roomFanSpeeds', JSON.stringify(updatedSpeeds));
+            return updatedSpeeds;
+          });
+        }
+      }
+    });
+  }, []);
+
+
+
+  const increaseFanSpeed = () => {
+    setFanSpeed((prevSpeed) => {
+      const newSpeed = Math.min(prevSpeed[selectedRoom] + 1, 5); // Max speed is 5
+      const updatedSpeeds = { ...prevSpeed, [selectedRoom]: newSpeed };
+      localStorage.setItem('roomFanSpeeds', JSON.stringify(updatedSpeeds));
+
+      // Send updated speed along with the fan's current status
+      sendMessage({
+        device: 'fan',
+        status: fanStatus[selectedRoom] ? 'on' : 'off',
+        speed: newSpeed,
+        room: roomMapping[selectedRoom],
+      });
+
+      return updatedSpeeds;
+    });
+  };
+
+  const decreaseFanSpeed = () => {
+    setFanSpeed((prevSpeed) => {
+      const newSpeed = Math.max(prevSpeed[selectedRoom] - 1, 1); // Min speed is 1
+      const updatedSpeeds = { ...prevSpeed, [selectedRoom]: newSpeed };
+      localStorage.setItem('roomFanSpeeds', JSON.stringify(updatedSpeeds));
+
+      // Send updated speed along with the fan's current status
+      sendMessage({
+        device: 'fan',
+        status: fanStatus[selectedRoom] ? 'on' : 'off',
+        speed: newSpeed,
+        room: roomMapping[selectedRoom],
+      });
+
+      return updatedSpeeds;
+    });
+  };
+
+  const [lightStatus, setLightStatus] = useState({
+    LivingRoom: false,
+    Bedroom: false,
+    Kitchen: false,
+    Outdoor: false,
+  });
+
+  const [lightBrightness, setLightBrightness] = useState({
+    LivingRoom: 100,
+    Bedroom: 100,
+    Kitchen: 100,
+    Outdoor: 100,
+  });
+
+  useEffect(() => {
+    const initialLightStatus = {
+      LivingRoom: localStorage.getItem('LivingRoomLightStatus') === 'on',
+      Bedroom: localStorage.getItem('BedroomLightStatus') === 'on',
+      Kitchen: localStorage.getItem('KitchenLightStatus') === 'on',
+      Outdoor: localStorage.getItem('OutdoorLightStatus') === 'on',
+    };
+    setLightStatus(initialLightStatus);
+
+    const storedBrightness = JSON.parse(localStorage.getItem('roomLightBrightness'));
+    if (storedBrightness) {
+      setLightBrightness(storedBrightness);
+    }
+
+    subscribeToMessages(({ device, status, brightness, room }) => {
+      const formattedRoom = Object.keys(roomMapping).find(
+        (key) => roomMapping[key] === room
+      );
+      if (device === 'light' && formattedRoom) {
+        setLightStatus((prevStatus) => ({
+          ...prevStatus,
+          [formattedRoom]: status === 'on',
+        }));
+        localStorage.setItem(`${formattedRoom}LightStatus`, status);
+
+
+        if (brightness=="50") {
+          setLightBrightness((prevBrightness) => {
+            const updatedBrightness = { ...prevBrightness, [formattedRoom]: 50 };
+            localStorage.setItem('roomLightBrightness', JSON.stringify(50));
+            return updatedBrightness;
+          });
+        }
+      }
+    });
+  }, []);
+
+  const increaseLightBrightness = () => {
+    setLightBrightness((prevBrightness) => {
+      const newBrightness = Math.min(prevBrightness[selectedRoom] + 50, 100); // Max is 100%
+      const updatedBrightness = { ...prevBrightness, [selectedRoom]: newBrightness };
+      localStorage.setItem('roomLightBrightness', JSON.stringify(updatedBrightness));
+
+      // Send updated brightness along with the light's current status
+      sendMessage({
+        device: 'light',
+        status: lightStatus[selectedRoom] ? 'on' : 'off',
+        brightness: '100',
+        room: roomMapping[selectedRoom],
+      });
+
+      return updatedBrightness;
+    });
+  };
+
+  const decreaseLightBrightness = () => {
+    setLightBrightness((prevBrightness) => {
+      const newBrightness = Math.max(prevBrightness[selectedRoom] - 50, 50); // Min is 50%
+      const updatedBrightness = { ...prevBrightness, [selectedRoom]: newBrightness };
+      localStorage.setItem('roomLightBrightness', JSON.stringify(updatedBrightness));
+
+      // Send updated brightness along with the light's current status
+      sendMessage({
+        device: 'light',
+        status: lightStatus[selectedRoom] ? 'on' : 'off',
+        brightness: '50',
+        room: roomMapping[selectedRoom],
+      });
+
+      return updatedBrightness;
+    });
+  };
+
+
+
+
   const renderRoom = () => {
     switch (selectedRoom) {
       case 'LivingRoom':
@@ -172,7 +357,13 @@ const Dashboard = () => {
         increaseTemperature={increaseTemperature}
         decreaseTemperature={decreaseTemperature}
         setInitialTemperature={setInitialTemperature}
-      /> 
+        increaseFanSpeed={increaseFanSpeed}
+        decreaseFanSpeed={decreaseFanSpeed}
+        fanSpeed={fanSpeed}
+        increaseLightBrightness={increaseLightBrightness}
+        decreaseLightBrightness={decreaseLightBrightness}
+        lightBrightness={lightBrightness}
+      />
       <div className="radial w-[100%] dark:!bg-[#0e193c] flex flex-col sm:w-screen lg:w-[32vw] bg-white h-[100%] lg:h-screen fixed lg:relative p-3 ml-auto  ">
         <div className="lg:hidden mt-12  z-0">
           <h1 className="text-[24px] ml-3 font-light dark:text-slate-400 text-gray-800 mt-3 sm:text-[19px]">

@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 
 const Home = ({ isAuthenticated }) => {
+    const messages = [
+        "a seamless experience.",
+        "an effortless journey.",
+        "unmatched simplicity.",
+        "everyday ease."
+    ];
+
+    const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentMessageIndex((prevIndex) => (prevIndex + 1) % messages.length);
+        }, 2500);
+
+        return () => clearInterval(interval);
+    }, [messages.length]);
     return (
         <>
             <div className="head">
@@ -25,15 +41,22 @@ const Home = ({ isAuthenticated }) => {
                 </div>
 
                 <div className='second'>
-
+                    
                     <div className='H1 dark:text-white'>MAKE YOUR LIFE MORE COMFORTABLE</div>
-                    <div className='H2 dark:text-slate-400'>Transforming comfort into a seamless experience.</div>
 
-                    {/* linking to guest page after validating username  */}
+                    <div className='H2 dark:text-slate-400'>
+                        Transforming comfort into {messages[currentMessageIndex]}
+                    </div>
+                    <div className="card1">
+                        <div className="card2">
+                            <div className="card21"></div>
+                            <div className="card22"></div>
+                        </div>
+                    </div>
                     <Link to="/guest_login">
                         <button className='joinbtn'>LOGIN AS GUEST</button>
                     </Link>
-                    {/* </div> */}
+                    
                     <div className='home-container'>
                         <h1 className='home-title'>Welcome to Our App</h1>
                         <div className="canbody">
@@ -49,7 +72,7 @@ const Home = ({ isAuthenticated }) => {
                 </div>
             </div>
             <main>
-                <div className="third">
+            <div className="third">
                     <div className="head3 dark:text-violet-200">Control Your Appliances With Ease And Comfort</div>
                     <div className="body3 dark:bg-slate-500 ">
                         <div className="left3 dark:text-white dark:bg-slate-800">
@@ -79,7 +102,6 @@ const Home = ({ isAuthenticated }) => {
                             <button className='thirdbtn'>SIGN UP</button>
                         </Link>
                     </div>
-                    {/* <button className='joinbtn'>LOGIN AS GUEST</button> */}
                 </div>
                 <div className="fourth dark:bg-violet-900">
                     <div className="top4 dark:text-white">You will gain access to...</div>
@@ -143,6 +165,7 @@ const Home = ({ isAuthenticated }) => {
                         </div>
                     </div>
                 </div>
+                
                 <div className="pop">
                     <Link to="/help">
                         Help?

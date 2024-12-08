@@ -1,23 +1,38 @@
 /* Bill page container with centered content */
 .bill-page {
     font-family: Arial, sans-serif;
-    padding: 40px;
+    padding: 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    /* Ensure it takes up full height */
+    height: 86.5vh;
+    width: 60vw;
     box-sizing: border-box;
+    position: relative;
+    border: 2px solid #fff;
+    border-radius: 10px; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    margin: 50px 20px 20px 290px;
+    background: #fff;
+    
 }
 
 .bill-page h1 {
-    font-size: 36px;
-    /* Increased font size */
+    color: #fff;
+    background: linear-gradient(135deg, #1e2a68,rgb(59, 169, 247));
+    border-radius: 5px;
+    text-decoration: underline #93c8f6;
+    font-size: 36px; 
     font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
+    text-align: center;
+    width: 90%;
+    margin: 0;
+    margin-bottom: 10px;
+    position: absolute;
+    top: 20px;
+    left: 50%; 
+    transform: translateX(-50%);
 }
 
 
@@ -27,32 +42,32 @@
     border-radius: 10px;
     width: 100%;
     max-width: 400px;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
 }
 
 /* Button styling */
 /* Button styling */
 .form button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 12px 25px;
     font-size: 16px;
     cursor: pointer;
     background: linear-gradient(135deg, #1e2a68, #0f1f4e);
-    /* Gradient background */
     color: white;
     border: none;
     border-radius: 8px;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    /* Added transform transition for scale effect */
     width: 100%;
-    /* Full width button */
     margin-top: 15px;
+    top: 450px;
 }
 
 .form button:hover {
     background: linear-gradient(135deg, #142063, #0b1a44);
-    /* Darker gradient on hover */
     transform: scale(1.05);
-    /* Slightly enlarge the button on hover */
 }
 
 .form button:disabled {
@@ -75,7 +90,7 @@
 .error {
     color: #f44336;
     font-weight: bold;
-    margin-top: 10px;
+   
 }
 
 /* Logs container */
@@ -123,6 +138,9 @@
     border-radius: 5px;
     cursor: pointer;
     margin-left: 10px;
+   position: relative;
+   bottom: 20px;
+    
 }
 
 .bill-page .clear-btn:disabled {
@@ -149,4 +167,104 @@
 .result-container .clear-btn:disabled {
     background-color: #ffcccc;
     cursor: not-allowed;
+}
+
+
+.button-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dollar-icon {
+    font-size: 24px;
+    margin-right: 10px; 
+}
+.billcontainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    gap: 40px; 
+   margin-bottom: 40px;
+}
+
+/* Common styling for both divs */
+.usagediv, .Electricitydiv {
+    border: 2px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 310px; /* Adjusted size */
+    height: 195px; /* Adjusted size */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Styling for the headings inside each div */
+.usagediv .heading, .Electricitydiv .heading {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px; /* Space between heading and value */
+}
+
+/* Styling for the values inside each div */
+.usagediv .value, .Electricitydiv .value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Clear button styling inside the result container */
+.result-container .clear-btn {
+    background-color: #70b6f8;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px; /* Add margin for better spacing */
+}
+
+.result-container .clear-btn:disabled {
+    background-color: #ffcccc;
+    cursor: not-allowed;
+}
+.bill-icon{
+
+    font-size: 24px;
+    margin-right: 10px; 
+}
+.energy-icon{
+    font-size: 24px;
+    margin-right: 10px; 
+}
+
+
+
+
+.result-container .heading-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between icon and text */
+}
+
+.result-container .heading-container .heading {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.result-container .value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.energy-icon,
+.bill-icon {
+    font-size: 24px;
+    color: #1e2a68;
 }

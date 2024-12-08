@@ -38,6 +38,7 @@ export const sendMessage = (message) => {
     if (socket && socket.readyState === WebSocket.OPEN) {
         // console.log('Sending WebSocket message:', message); // Add logging for debugging
         socket.send(JSON.stringify(message));
+
     } else {
         console.warn('WebSocket is not open. Unable to send message:', message);
     }

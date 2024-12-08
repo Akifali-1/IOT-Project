@@ -3,6 +3,13 @@ import FanControl from './Fan_Control.jsx';
 import LightControl from './LightControl.jsx';
 
 import WeeklyUsageChart from './WeeklyUsageChart';
+
+const handleLogout = () => {
+  window.location.href = "/";
+};
+
+
+
 const LeftSection = ({
   userName,
   selectedRoom,
@@ -12,9 +19,18 @@ const LeftSection = ({
   increaseTemperature,
   decreaseTemperature,
   setInitialTemperature,
+  increaseFanSpeed,
+  decreaseFanSpeed,
+  fanSpeed,
+  increaseLightBrightness,
+  decreaseLightBrightness,
+  lightBrightness
 }) => {
   const isAcOn = acStatus[selectedRoom] ?? false; // Default to false if undefined
   const roomTemperature = temperature[selectedRoom] ?? 16; // Default to 16 if undefined
+
+  const isGuest = window.location.pathname.includes('/guest');
+
 
   return (
     <div className="left flex flex-col w-full lg:w-[65vw] min-h-screen p-4  sm:block tb:block md1-block overflow-hidden">
@@ -27,7 +43,7 @@ const LeftSection = ({
         </p>
       </div>
       <div className="deviceControl">
-        <div className="mt-6 text-sm">
+        <div className="mt-[21px] text-sm">
           <ACControl
             isOn={isAcOn}
             toggleAC={toggleAC}
@@ -39,14 +55,33 @@ const LeftSection = ({
           />
         </div>
         <div className="LightFanControl">
-          <FanControl />
-          <LightControl />
+          <FanControl
+            increaseFanSpeed={increaseFanSpeed}
+            decreaseFanSpeed={decreaseFanSpeed}
+            fanSpeed={fanSpeed}
+            selectedRoom={selectedRoom}
+          />
+          <LightControl 
+           increaseLightBrightness={increaseLightBrightness}
+           decreaseLightBrightness={decreaseLightBrightness}
+           lightBrightness={lightBrightness}
+           selectedRoom={selectedRoom}/>
         </div>
 
       </div>
-      <div className=''>
-        <WeeklyUsageChart />
-      </div>
+      {!isGuest ? (
+        <div className="">
+          <WeeklyUsageChart />
+        </div>
+      ) : (
+        <button
+          onClick={handleLogout}
+          className="mt-6 bg-red-500 text-white py-2 px-4 rounded-full hover:bg-red-600 transition duration-300"
+        >
+          Log Out
+        </button>
+      )}
+
     </div>
   );
 };

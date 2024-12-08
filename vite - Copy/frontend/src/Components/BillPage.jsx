@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import './BillPage.css';
+import { CiDollar } from "react-icons/ci";
+import { SlEnergy } from "react-icons/sl";
+import { RiBillLine } from "react-icons/ri";
 
 const BillPage = () => {
-    const [totalUsage, setTotalUsage] = useState(null);
-    const [bill, setBill] = useState(null);
+    const [totalUsage, setTotalUsage] = useState(0); // Default to 0
+    const [bill, setBill] = useState(0); // Default to 0
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const [dataFetched, setDataFetched] = useState(false); // Track if data has been fetched
 
     const ratePerHour = 5; // Rate per hour in your currency
 
@@ -14,8 +18,6 @@ const BillPage = () => {
         setLoading(true);
         setError('');
         setSuccessMessage('');
-        setTotalUsage(null);
-        setBill(null);
 
         try {
             const response = await fetch('http://localhost:8080/api/devices/calculateUsage');
@@ -33,6 +35,7 @@ const BillPage = () => {
 
             setTotalUsage(usage.toFixed(2)); // Display with 2 decimal places
             setBill(calculatedBill.toFixed(2)); // Display with 2 decimal places
+            setDataFetched(true); // Mark data as fetched
         } catch (err) {
             console.error('Fetch Error:', err.message);
             setError('An error occurred while fetching the usage data.');
@@ -57,9 +60,10 @@ const BillPage = () => {
                 return;
             }
 
-            setTotalUsage(null);
-            setBill(null);
+            setTotalUsage(0); // Reset to 0
+            setBill(0); // Reset to 0
             setSuccessMessage('All usage data cleared successfully.');
+            setDataFetched(false); // Hide the Clear button
         } catch (err) {
             console.error('Clear Error:', err.message);
             setError('An error occurred while clearing the usage data.');
@@ -70,29 +74,45 @@ const BillPage = () => {
 
     return (
         <div className="bill-page">
-            <h1>Electricity Usage & Bill Calculator</h1>
+            <div className='heading'>
+                <h1>Electricity Usage & Bill Calculator</h1>
+                {successMessage && <p className="success">{successMessage}</p>} {/* Success message below the heading */}
+            </div>
             <div className="form">
                 <button onClick={fetchUsageData} disabled={loading}>
-                    {loading ? 'Calculating...' : 'Calculate Total Bill'}
+                    <div className="button-content">
+                        <CiDollar className="dollar-icon" />
+                        {loading ? 'Calculating...' : 'Calculate Total Bill'}
+                    </div>
                 </button>
             </div>
 
             {error && <p className="error">{error}</p>}
-            {successMessage && <p className="success">{successMessage}</p>}
 
-            {!loading && !error && totalUsage && bill && (
-                <div className="result-container">
-                    <p>
-                        <strong>Total Usage:</strong> {totalUsage} hours
-                    </p>
-                    <p>
-                        <strong>Total Electricity Bill:</strong> ₹{bill}
-                    </p>
+            <div className="result-container">
+                <div className="billcontainer">
+                    <div className="usagediv">
+                        <div className="heading-container">
+                            <SlEnergy className='energy-icon' />
+                            <p className="heading">Total Usage</p>
+                        </div>
+                        <p className="value">{totalUsage} hours</p>
+                    </div>
+                    <div className="Electricitydiv">
+                        <div className="heading-container">
+                            <RiBillLine className='bill-icon' />
+                            <p className="heading">Total Electricity Bill</p>
+                        </div>
+                        <p className="value">₹{bill}</p>
+                    </div>
+                </div>
+
+                {dataFetched && ( // Conditionally render the Clear button
                     <button onClick={clearUsageData} disabled={loading} className="clear-btn">
                         {loading ? 'Clearing...' : 'Clear Data'}
                     </button>
-                </div>
-            )}
+                )}
+            </div>
         </div>
     );
 };
