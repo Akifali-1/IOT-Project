@@ -1,16 +1,25 @@
-
 .container{
     /* display: flex; */
          background-color: #624ec6;
          justify-content: center;
          align-items: center;
+         display: flex;
+         flex-direction: column;
+         height: auto;
      
+ }
+ h1{
+    color: #0f1f4e;
+    font-weight: 900;
+    font-size: 3rem;
  }
  .glass{
     padding: 10vh;
      background-color: rgba(253, 253, 253, 0.418);
      backdrop-filter: blur(10px);
      border: 1px solid #fff;
+     font-size: 1.5rem;
+     font-weight: bolder;
      /* height: 90v */
  }
  .text{
@@ -29,7 +38,8 @@
  .icon{
     /* margin-right:0.5vw; */
     position: absolute;
-    left: 600px;
+    left: 53vh;
+
  }
  .text3{
   list-style: none;
