@@ -326,6 +326,8 @@ const LeftMOBILE = () => {
       alert('Invalid temperature. Please enter a value between 16 and 30.');
     }
   };
+  const isAcOn = acStatus[selectedRoom] ?? false; // Default to false if undefined
+  const roomTemperature = temperature[selectedRoom] ?? 16; // Default to 16 if undefined
 
   return (
     <div className="mt-[55px] min-h-full ">
@@ -338,9 +340,9 @@ const LeftMOBILE = () => {
       <div className="deviceContrl flex flex-col gap-4 min-h-screen">
         <div className="-ml-[58px] mt-36">
           <ACControl
-         
+          isOn={isAcOn}
             toggleAC={toggleAC}
-           
+            temperature={roomTemperature}
             increaseTemperature={increaseTemperature}
             decreaseTemperature={decreaseTemperature}
             setInitialTemperature={setInitialTemperature}
@@ -350,7 +352,7 @@ const LeftMOBILE = () => {
             fanSpeed={fanSpeed}
             increaseLightBrightness={increaseLightBrightness}
             decreaseLightBrightness={decreaseLightBrightness}
-            lightBrightness={lightBrightness}
+            lightBrightness={lightBrightness}Z
           />
         </div>
         <div className="LightFanControl ml-3 flex flex-col gap-2">
