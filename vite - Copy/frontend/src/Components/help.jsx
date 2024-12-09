@@ -7,7 +7,7 @@ const Help = () => {
   return (
     <>
       <div className='glass text container'>
-        <h1>Stuck? Welcome to the Help Page for your IoT-based automated Home! Here’s a quick guide to get started and troubleshoot common issues.</h1>
+        <h1 className='cap'>Stuck? Welcome to the Help Page for your IoT-based automated Home! Here’s a quick guide to get started and troubleshoot common issues.</h1>
 
         <h2>Features :-</h2>
         <ul>
