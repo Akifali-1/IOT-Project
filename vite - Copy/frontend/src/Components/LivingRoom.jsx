@@ -37,9 +37,9 @@ function LivingRoom() {
 
         const socket = initializeWebSocket();
 
-        subscribeToMessages(({ device, status, room, control }) => {
+        subscribeToMessages(({ device, status, room }) => {
             if (room === 'livingroom') {
-              if (device === 'all' && control === 'off') {
+              if (status === 'alloff') {
                 // Turn off all devices in the living room
                 setDeviceStates((prevStates) => {
                   const updatedStates = { ...prevStates };
@@ -48,7 +48,9 @@ function LivingRoom() {
                   });
                   return updatedStates;
                 });
-              } else {
+              }
+             
+               else {
                 // Handle specific device status
                 setDeviceStates((prevStates) => ({
                   ...prevStates,

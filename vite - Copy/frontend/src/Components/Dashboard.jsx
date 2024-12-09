@@ -120,7 +120,7 @@ const Dashboard = () => {
       sendMessage({
         device: 'ac',
         status: acStatus[selectedRoom] ? 'on' : 'off',
-        temperature: '+',
+        control: '+',
         room: roomMapping[selectedRoom],
       });
 
@@ -138,7 +138,7 @@ const Dashboard = () => {
       sendMessage({
         device: 'ac',
         status: acStatus[selectedRoom] ? 'on' : 'off',
-        temperature: '-',
+        control: '-',
         room: roomMapping[selectedRoom],
       });
 
@@ -182,7 +182,7 @@ const Dashboard = () => {
       if (device === 'fan' && formattedRoom) {
         setFanStatus((prevStatus) => ({
           ...prevStatus,
-          [formattedRoom]: status === 'on',
+          [formattedRoom]: status === 'on'  ,
         }));
         localStorage.setItem(`${formattedRoom}FanStatus`, status);
 
@@ -203,13 +203,13 @@ const Dashboard = () => {
     setFanSpeed((prevSpeed) => {
       const newSpeed = Math.min(prevSpeed[selectedRoom] + 1, 5); // Max speed is 5
       const updatedSpeeds = { ...prevSpeed, [selectedRoom]: newSpeed };
+      localStorage.setItem(`${selectedRoom}fanStatus`, 'on');
       localStorage.setItem('roomFanSpeeds', JSON.stringify(updatedSpeeds));
 
       // Send updated speed along with the fan's current status
       sendMessage({
         device: 'fan',
-        status: fanStatus[selectedRoom] ? 'on' : 'off',
-        speed: newSpeed,
+        status: `${newSpeed}`,
         room: roomMapping[selectedRoom],
       });
 
@@ -221,13 +221,13 @@ const Dashboard = () => {
     setFanSpeed((prevSpeed) => {
       const newSpeed = Math.max(prevSpeed[selectedRoom] - 1, 1); // Min speed is 1
       const updatedSpeeds = { ...prevSpeed, [selectedRoom]: newSpeed };
+      localStorage.setItem(`${selectedRoom}fanStatus`, 'on');
       localStorage.setItem('roomFanSpeeds', JSON.stringify(updatedSpeeds));
 
       // Send updated speed along with the fan's current status
       sendMessage({
         device: 'fan',
-        status: fanStatus[selectedRoom] ? 'on' : 'off',
-        speed: newSpeed,
+        status: `${newSpeed}`,
         room: roomMapping[selectedRoom],
       });
 

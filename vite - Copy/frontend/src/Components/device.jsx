@@ -89,7 +89,7 @@ function Device() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {devices.map((device, index) => (
-                    <div key={index} className="bg-white p-4 shadow-md rounded text-center">
+                    <div key={index} className="bg-white p-4 shadow-md rounded text-center dark:!bg-[#ffffff04]">
                         <div className="flex justify-center mb-2 opacity-80">{device.icon}</div>
                         <h2 className="font-semibold text-lg mb-2">{device.name}</h2>
                         <button
