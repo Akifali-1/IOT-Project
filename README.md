@@ -1,13 +1,21 @@
 🏠 IoT Home Automation System
-IoT Home Automation System is a project that enables voice-controlled operation of household devices using an ESP32 microcontroller. It also features automatic device shutdown based on room occupancy using a robo ball sensor. The system provides real-time communication through WebSocket and uses Edge Impulse for machine learning model training.
+IoT Home Automation System is a project that enables voice-controlled operation of household devices using an ESP32 microcontroller. It features automatic device shutdown based on room occupancy using a robo ball sensor and real-time communication using WebSocket.
 
+🚀 Features
+🎙️ Voice-Controlled Devices: Control lights and fans via voice commands.
+
+🤖 Occupancy Detection: Robo ball sensor detects room presence.
+
+🔌 Automatic Power Saving: Devices automatically turn off when the room is unoccupied.
+
+🔗 Real-Time Communication: WebSocket-based instant updates between ESP32 and the dashboard.
 
 🛠️ Technologies Used
 ESP32 Microcontroller
 
-Edge Impulse (for ML model training)
+Edge Impulse (ML model training)
 
-WebSocket (for real-time communication)
+WebSocket
 
 Arduino
 
@@ -20,54 +28,51 @@ Node.js (Backend)
 
 🕹️ Real-time device control via WebSocket
 
+🛑 Automatic device shutdown when the room is empty
 
+🤖 Robo ball-based occupancy detection
 
-🚀 How to Run
+💻 How to Run
 📥 Clone the repository:
 bash
 Copy
 Edit
 git clone https://github.com/your-username/iot-home-automation.git
-📂 Navigate to the project folder:
+📂 Navigate to:
 bash
 Copy
 Edit
 cd iot-home-automation/app
 💻 Open Split Terminals
-👉 Terminal 1 (Frontend)
+👉 In Terminal 1 (Frontend)
 bash
 Copy
 Edit
 npm install
 npm run dev
-(This will start the Vite frontend server.)
-
-👉 Terminal 2 (Backend)
+👉 In Terminal 2 (Backend)
 bash
 Copy
 Edit
 node app.js
-(This will start the backend server.)
+⚙️ Configure
+Set WiFi credentials and WebSocket server address in the ESP32 code.
 
-⚙️ Configure:
-Make sure WiFi credentials and WebSocket server address are correctly set in the ESP32 code.
+Ensure the Edge Impulse model is deployed correctly to ESP32.
 
-Ensure the Edge Impulse model is deployed properly to ESP32.
+Both frontend and backend should run simultaneously for real-time updates.
 
-The frontend and backend must run simultaneously for real-time updates.
-
-🔧 Future Improvements
+📚 Future Improvements
 📲 Add mobile app control
 
-🗣️ Expand voice control to more devices
+🗣️ Expand voice control to multiple devices
 
 ⚡ Implement advanced energy monitoring
 
-🌐 Improve UI for web dashboard
+🌐 Improve the web dashboard interface
 
 ✅ Important Notes:
 
-ESP32 should be connected to a stable WiFi network.
+ESP32 must be connected to a stable WiFi network.
 
-The backend server should be running continuously to handle real-time WebSocket communication.
-
+Backend server should run continuously to maintain WebSocket connection.
