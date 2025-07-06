@@ -1,4 +1,5 @@
-🏠 IoT Home Automation System
+###🏠 IoT Home Automation System
+
 IoT Home Automation System is a project that enables voice-controlled operation of household devices using an ESP32 microcontroller. It features automatic device shutdown based on room occupancy using a robo ball sensor and real-time communication using WebSocket.
 
 🚀 Features
