@@ -1,13 +1,12 @@
-###🏠 IoT Home Automation System
-
+#🏠 IoT Home Automation System
 IoT Home Automation System is a project that enables voice-controlled operation of household devices using an ESP32 microcontroller. It features automatic device shutdown based on room occupancy using a robo ball sensor and real-time communication using WebSocket.
 
-🚀 Features
+##✨ Features
 🎙️ Voice-Controlled Devices: Control lights and fans via voice commands.
 
 🤖 Occupancy Detection: Robo ball sensor detects room presence.
 
-🔌 Automatic Power Saving: Devices automatically turn off when the room is unoccupied.
+📴 Automatic Power Saving: Devices automatically turn off when the room is unoccupied.
 
 🔗 Real-Time Communication: WebSocket-based instant updates between ESP32 and the dashboard.
 
@@ -27,13 +26,13 @@ Node.js (Backend)
 📱 Key Functionalities
 🗣️ Voice-controlled fan and light operation
 
-🕹️ Real-time device control via WebSocket
+📲 Real-time device control via WebSocket
 
 🛑 Automatic device shutdown when the room is empty
 
 🤖 Robo ball-based occupancy detection
 
-💻 How to Run
+🚀 How to Run
 📥 Clone the repository:
 bash
 Copy
