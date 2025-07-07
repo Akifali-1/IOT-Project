@@ -35,7 +35,7 @@ git clone https://github.com/Akifali-1/IoT-Home-Automation-Project.git
 ``` 
 ### Navigate to the project directory
 ```bash
-cd IoT-Home-Automation-Project/app/frontend
+cd IOT-Project/app/frontend
 ```
 # Install frontend dependencies
 ```bash
