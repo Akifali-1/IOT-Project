@@ -1,78 +1,81 @@
-#🏠 IoT Home Automation System
-IoT Home Automation System is a project that enables voice-controlled operation of household devices using an ESP32 microcontroller. It features automatic device shutdown based on room occupancy using a robo ball sensor and real-time communication using WebSocket.
+# 🌐 IoT-Based Home Automation System
 
-##✨ Features
-🎙️ Voice-Controlled Devices: Control lights and fans via voice commands.
+The IoT Home Automation project is designed to control home appliances using voice commands and real-time device management. It operates with an **ESP32 microcontroller**, **WebSocket communication**, and a custom-built website for seamless control.
 
-🤖 Occupancy Detection: Robo ball sensor detects room presence.
+---
 
-📴 Automatic Power Saving: Devices automatically turn off when the room is unoccupied.
+## ✨ Features
+- 🎤 **Voice-Controlled Automation**: Turn appliances on/off using voice commands.
+- ⚡ **Real-Time Control**: Control fan and light instantly via WebSocket.
+- 🌐 **Web Dashboard**: Control and monitor devices from a custom website.
 
-🔗 Real-Time Communication: WebSocket-based instant updates between ESP32 and the dashboard.
+---
 
-🛠️ Technologies Used
-ESP32 Microcontroller
+## 🛠️ Technologies Used
+- ESP32 Microcontroller
+- WebSocket Communication
+- React.js for Website Dashboard
+- JavaScript / HTML / CSS
 
-Edge Impulse (ML model training)
+---
 
-WebSocket
+## 📱 Key Functionalities
+- 🎤 Voice recognition to control devices
+- 💡 Real-time fan and light control via WebSocket
+- 🌐 Website for device status and manual control
 
-Arduino
+---
 
-Vite (Frontend)
+## 🚀 How to Run
 
-Node.js (Backend)
 
-📱 Key Functionalities
-🗣️ Voice-controlled fan and light operation
-
-📲 Real-time device control via WebSocket
-
-🛑 Automatic device shutdown when the room is empty
-
-🤖 Robo ball-based occupancy detection
-
-🚀 How to Run
-📥 Clone the repository:
-bash
-Copy
-Edit
-git clone https://github.com/your-username/iot-home-automation.git
-📂 Navigate to:
-bash
-Copy
-Edit
-cd iot-home-automation/app
-💻 Open Split Terminals
-👉 In Terminal 1 (Frontend)
-bash
-Copy
-Edit
+### Clone the repository
+```bash
+git clone https://github.com/Akifali-1/IoT-Home-Automation-Project.git
+``` 
+### Navigate to the project directory
+```bash
+cd IoT-Home-Automation-Project/app/frontend
+```
+# Install frontend dependencies
+```bash
 npm install
+```
+### Navigate to backend directory
+```bash
+cd ../backend
+```
+
+### Install backend dependencies
+```bash
+npm install
+```
+### Navigate back to main app directory
+```bash
+cd ..
+```
+## ▶️ Run the Project
+### Run Frontend (Terminal 1)
+```bash
+cd IOT-Project/app/frontend
 npm run dev
-👉 In Terminal 2 (Backend)
-bash
-Copy
-Edit
+```
+### Run Backend (Terminal 2)
+```bash
+cd IOT-Project/app/backend
 node app.js
-⚙️ Configure
-Set WiFi credentials and WebSocket server address in the ESP32 code.
+```
 
-Ensure the Edge Impulse model is deployed correctly to ESP32.
+## 🔧 Future Improvements
+🎤 Integrate offline voice-to-text using Whisper.cpp or similar.
 
-Both frontend and backend should run simultaneously for real-time updates.
+📱 Mobile app support for remote control.
 
-📚 Future Improvements
-📲 Add mobile app control
+🌐 Deploy backend and frontend on a local server or cloud.
 
-🗣️ Expand voice control to multiple devices
+🔒 Add user authentication for website access.
 
-⚡ Implement advanced energy monitoring
+## ✅ Important Notes
+Ensure ESP32 is connected and programmed with the correct firmware.
 
-🌐 Improve the web dashboard interface
-
-✅ Important Notes:
-
-ESP32 must be connected to a stable WiFi network.
-
-Backend server should run continuously to maintain WebSocket connection.
+Make sure WebSocket server is running before starting the ESP32.
