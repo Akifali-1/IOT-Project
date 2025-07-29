@@ -12,7 +12,7 @@ import Contact from './Components/Contact.jsx';
 import Reports from './Components/Reports.jsx';
 import Guest from './Components/guest.jsx';
 import Guest_Login from './Components/guest_login.jsx';
-import Help from './Components/Help.jsx';
+import Help from './Components/help.jsx';
 import BillPage from './Components/BillPage';
 import Bottom from './Components/bottom.jsx';
 import Left from './Components/leftMOBILE.jsx';
