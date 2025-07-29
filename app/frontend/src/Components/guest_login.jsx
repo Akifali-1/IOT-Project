@@ -80,7 +80,7 @@ const Guest_Login = () => {
                 {/* Left Panel */}
                 <div className="left-panel">
                     <img
-                        src={LeftPanelImage}
+                        src="/assets/download.png"
                         alt="Innovative Decision Concept"
                         className="left-image"
                     />
@@ -91,12 +91,12 @@ const Guest_Login = () => {
                     <h2 className="right-title">Login as Guest</h2>
                     <form className="signup-form" onSubmit={handleSubmit}>
                         <div className="form-input">
-                            <img src={email_icon} alt="email icon" />
+                            <img src="/assets/email.png" alt="email icon" />
                             <input
                                 type="email"
                                 placeholder="Enter your email"
                                 name="email"
-                                value={email} // Bind email state here
+                                value={email}
                                 onChange={handleChange}
                                 required
                             />

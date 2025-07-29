@@ -1,32 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { fetchDevices, toggleDevice, addDevice, removeDevice } from './deviceUtils';
 import { initializeWebSocket, subscribeToMessages } from './websocketUtils';
-import fan from '../assets/fan-tan.png'
-import fridge from '../assets/fridge.png'
-import speaker from '../assets/volume.png'
 
-import light from '../assets/idea.png'
-import heater from '../assets/heater.png'
-import ac from '../assets/air-conditioner.png'
-import tv from '../assets/tv.png'
 import './rooms.css'
 
 function Bedroom() {
     const [devices, setDevices] = useState([]);
     const [deviceStates, setDeviceStates] = useState({});
     const [newDevice, setNewDevice] = useState('');
-    const allowedDevices = ['fan', 'light', 'ac', 'heater', 'television','speaker','fridge'];
+    const allowedDevices = ['fan', 'light', 'ac', 'heater', 'television', 'speaker', 'fridge'];
 
     const deviceImages = {
-        fan: fan,
-        light: light,
-        ac: ac,
-        heater: heater,
-        television: tv,
-        speaker:speaker,
-        fridge:fridge
+        fan: '/assets/fan-tan.png',
+        light: '/assets/idea.png',
+        ac: '/assets/air-conditioner.png',
+        heater: '/assets/heater.png',
+        television: '/assets/tv.png',
+        speaker: '/assets/volume.png',
+        fridge: '/assets/fridge.png'
     };
-
 
     const isGuest = window.location.pathname.includes('/guest');
 
@@ -104,15 +96,14 @@ function Bedroom() {
                         >
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <div className='bg-[#ffffff43] rounded-[20000px]  mr-4 p-[5px] -pr-5'>
-                                    <img className='  w-5 invert '
-                                        src={deviceImages[device.name] || 'path-to-default-image.png'}
+                                    <img
+                                        className='w-5 invert'
+                                        src={deviceImages[device.name] || '/assets/default.png'}
                                         alt={`${device.name} icon`}
                                         style={{
                                             width: '20px',
                                             height: '20px',
                                             borderRadius: '50%',
-
-
                                         }}
                                     /></div>
                                 <h3 style={{ margin: '0', fontSize: '1.2rem', color: 'white' }}>

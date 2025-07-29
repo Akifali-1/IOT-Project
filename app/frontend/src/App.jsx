@@ -12,7 +12,7 @@ import Contact from './Components/Contact.jsx';
 import Reports from './Components/Reports.jsx';
 import Guest from './Components/guest.jsx';
 import Guest_Login from './Components/guest_login.jsx';
-import Help from './Components/Help.jsx';
+import Help from './Components/help.jsx';
 import BillPage from './Components/BillPage';
 import Bottom from './Components/bottom.jsx';
 import Left from './Components/leftMOBILE.jsx';
@@ -26,13 +26,13 @@ function AppContent({ darkMode, setDarkMode, isAuthenticated, setIsAuthenticated
 
     return (
         <>
-  
+
 
 
             {/* Only show Navbar if the current path is not in the hideNavbarPaths */}
-            {showNavbar && <Navbar /> }
-            {showNavbar &&   <div className=" w-screen lg:hidden">
-                <Bottom/></div>}
+            {showNavbar && <Navbar />}
+            {showNavbar && <div className=" w-screen lg:hidden">
+                <Bottom /></div>}
             <Routes>
                 <Route path="/" element={<Home />} />
                 {/* <Route path="/Help" element={<Help />} /> */}
@@ -52,8 +52,8 @@ function AppContent({ darkMode, setDarkMode, isAuthenticated, setIsAuthenticated
                 <Route path="/help" element={<Help />} />
                 <Route path="/guest" element={<Guest />} />
                 <Route path="/bill" element={<BillPage />} />
-                <Route path="/control" element={<Left/>} />
-                <Route path="/settings" element={<SettingsPage/>} />
+                <Route path="/control" element={<Left />} />
+                <Route path="/settings" element={<SettingsPage />} />
 
             </Routes>
         </>
@@ -65,7 +65,7 @@ function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [username, setUsername] = useState('');
 
-   
+
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -77,7 +77,7 @@ function App() {
     return (
         <Router>
             <AppContent
-               
+
                 isAuthenticated={isAuthenticated}
                 setIsAuthenticated={setIsAuthenticated}
                 setUsername={setUsername}

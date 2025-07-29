@@ -1,87 +1,97 @@
 /* Some of the classes in every cards are common */
-.control-container{
+.control-container {
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
   text-align: center;
   justify-content: space-around;
   align-items: center;
-  padding: 0.5vw;background-color: rgba(255, 255, 255, 0.7);
-  border:3px rgba(255, 255, 255, 0.405) solid;
+  padding: 0.5vw;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 3px rgba(255, 255, 255, 0.405) solid;
   backdrop-filter: blur(2px);
-  
+
   border-radius: 8px;
   width: 28vw;
   margin: 2vw;
   margin-left: 3vw;
 
 }
+
 @media (min-width: 768px) {
   .md\:w-\[25vw\] {
-      width: 88vw;
+    width: 88vw;
   }
 }
-.fan_icon{
-  background-image: url('src/assets/fan_icon.png');
+
+.fan_icon {
+  background-image: url('/assets/fan_icon.png');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
   padding: 20px;
-  width:5px;
-  height:5px;
+  width: 5px;
+  height: 5px;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
 }
-.light_icon{
-background-image: url('src/assets/light_icon.png');
+
+.light_icon {
+  background-image: url('/assets/light_icon.png');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
   padding: 10px;
-  width:40px;
-  height:40px;
+  width: 40px;
+  height: 40px;
   padding-right: 20px;
   position: relative;
   /* right: 50px; */
   justify-content: center;
-  align-items: center; 
+  align-items: center;
 }
-.leftC{
+
+.leftC {
   display: flex;
   flex-direction: column;
 }
-.control-title{
-font-size: large;
-font-weight: 600;
-/* margin: 0; */
+
+.control-title {
+  font-size: large;
+  font-weight: 600;
+  /* margin: 0; */
 }
 
-.control-value{
-font-size: 3rem;
-font-weight: bolder;
-/* margin: 8px 0; */
+.control-value {
+  font-size: 3rem;
+  font-weight: bolder;
+  /* margin: 8px 0; */
 }
-.control-buttons{
+
+.control-buttons {
   position: relative;
   /* left: 50px; */
   padding: 0%;
   display: flex;
   flex-direction: column;
 }
-.buttons{
-font-size: 18px;
-margin: 0.3vw;
-margin-right: 1vw;
-padding: 1vw 1.5vw;
-background: #bfdbfe;
-color: #2563eb;
-border-radius: 0%;
-border: none;
-border-radius: 4px;
-cursor: pointer;
+
+.buttons {
+  font-size: 18px;
+  margin: 0.3vw;
+  margin-right: 1vw;
+  padding: 1vw 1.5vw;
+  background: #bfdbfe;
+  color: #2563eb;
+  border-radius: 0%;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
+
 .button:hover {
   background: #0056b3;
 }
+
 .dark .cardx {
   background-color: rgba(68, 74, 144, 0.136);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);

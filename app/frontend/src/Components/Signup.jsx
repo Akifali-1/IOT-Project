@@ -85,7 +85,7 @@ const Signup = () => {
         {/* Left Panel */}
         <div className="left-panel">
           <img
-            src={LeftPanelImage}
+            src="/assets/download.png"
             alt="Innovative Decision Concept"
             className="left-image"
           />
@@ -97,7 +97,7 @@ const Signup = () => {
           <form className="signup-form" onSubmit={handleSignupSubmit}>
             {/* Name Input */}
             <div className="form-input">
-              <img src={person_icon} alt="person icon" />
+              <img src="/assets/person.png" alt="person icon" />
               <input
                 type="text"
                 placeholder="Name"
@@ -110,7 +110,7 @@ const Signup = () => {
 
             {/* Email Input */}
             <div className="form-input">
-              <img src={email_icon} alt="email icon" />
+              <img src="/assets/email.png" alt="email icon" />
               <input
                 type="email"
                 placeholder="Enter your email"
@@ -123,7 +123,7 @@ const Signup = () => {
 
             {/* Password Input */}
             <div className="form-input">
-              <img src={password_icon} alt="password icon" />
+              <img src="/assets/password.png" alt="password icon" />
               <input
                 type="password"
                 placeholder="Enter your password"

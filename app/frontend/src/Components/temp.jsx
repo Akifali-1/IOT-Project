@@ -41,11 +41,11 @@ const Temp = () => {
         <div className="content">
           <h1 className="Condition">
             <li className="flex gap-2 mb-3">
-              <img className="size-5 invert opacity-80" src={wifi} alt="" />
-              <img className="size-5 invert opacity-90 " src={sensor} alt="" />
+              <img className="size-5 invert opacity-80" src="/assets/wifi.png" alt="" />
+              <img className="size-5 invert opacity-90 " src="/assets/sensor.png" alt="" />
             </li>
             <i>
-              <img className="w-40 cloud2 -mt-8 sm:-ml-3 sm:w-32 sm:-mt-6" src={ai} alt="" />
+              <img className="w-40 cloud2 -mt-8 sm:-ml-3 sm:w-32 sm:-mt-6" src="/assets/ai.png" alt="" />
             </i>
           </h1>
           <h1 className="Temp mb-2 ml-[165px] text-[30px] sm:ml-[110px]">

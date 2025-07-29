@@ -1,5 +1,5 @@
 import React from 'react';
-import './Help.css';
+import './help.css';
 import { FaWrench } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 

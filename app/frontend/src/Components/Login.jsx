@@ -4,9 +4,6 @@ import axios from 'axios';
 import './LoginSignup.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import LeftPanelImage from '../assets/download.png'; // Transparent background image
-import email_icon from '../assets/email.png';
-import password_icon from '../assets/password.png';
 
 const Login = ({ setUsername, setIsAuthenticated }) => {
     const [formData, setFormData] = useState({
@@ -79,7 +76,7 @@ const Login = ({ setUsername, setIsAuthenticated }) => {
                 {/* Left Panel */}
                 <div className="left-panel">
                     <img
-                        src={LeftPanelImage}
+                        src="/assets/download.png"
                         alt="Innovative Decision Concept"
                         className="left-image"
                     />
@@ -90,7 +87,7 @@ const Login = ({ setUsername, setIsAuthenticated }) => {
                     <h2 className="right-title">Login</h2>
                     <form className="signup-form" onSubmit={handleSubmit}>
                         <div className="form-input">
-                            <img src={email_icon} alt="email icon" />
+                            <img src="/assets/email.png" alt="email icon" />
                             <input
                                 type="email"
                                 placeholder="Enter your email"
@@ -101,7 +98,7 @@ const Login = ({ setUsername, setIsAuthenticated }) => {
                             />
                         </div>
                         <div className="form-input">
-                            <img src={password_icon} alt="password icon" />
+                            <img src="/assets/password.png" alt="password icon" />
                             <input
                                 type="password"
                                 placeholder="Enter your password"
