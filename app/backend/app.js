@@ -9,18 +9,21 @@ const DeviceUsage = require('./models/deviceUsage'); // Import the schema
 initializeWebSocket();
 
 const app = express();
-PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 
 connectUserDB();
 connectDevicesDB();
 
-app.use(cors());
+app.use(cors({
+    origin: 'https://smarthome-peach.vercel.app', // replace with your actual frontend URL
+    credentials: true
+}));
 app.use(express.json({ extended: false }));
 
 app.get('/api/devices/calculateUsage', async (req, res) => {
     try {
-        const usages = await DeviceUsage.find(); // Fetch usage records from the database
+        const usages = await DeviceUsage.find(); // Fetch usage records from the database   
 
         if (!usages.length) {
             return res.status(404).json({ message: 'No device usage records found' });
@@ -151,4 +154,4 @@ app.use('/api/devices', require('./routes/devices'));
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`App listening on PORT:${PORT}`);
-})
+});

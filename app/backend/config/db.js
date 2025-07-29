@@ -2,12 +2,13 @@ const mongoose = require('mongoose');
 
 const connectUserDB = async () => {
     try {
-        const mongoUserURI = process.env.MONGO_USER_URI || 'mongodb://localhost:27017/User';
+        const mongoUserURI = process.env.MONGO_USER_URI;
 
         if (mongoose.connection.readyState === 0) {
             // Connect if not already connected
             await mongoose.connect(mongoUserURI, {
-
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
             });
             console.log('UserDB connected');
         } else {
@@ -22,11 +23,12 @@ const connectUserDB = async () => {
 
 const connectDevicesDB = async () => {
     try {
-        const mongoDeviceURI = process.env.MONGO_DEVICE_URI || 'mongodb://localhost:27017/Device';
+        const mongoDeviceURI = process.env.MONGO_DEVICE_URI;
 
         // Create a new connection for the devices database
         const devicesConnection = mongoose.createConnection(mongoDeviceURI, {
-
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
         });
 
         devicesConnection.on('connected', () => {
