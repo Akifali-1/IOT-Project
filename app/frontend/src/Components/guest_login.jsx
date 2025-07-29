@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './LoginSignup.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import email_icon from '../assets/email.png';
-import LeftPanelImage from '../assets/download.png'; // Transparent background image
+
 
 const Guest_Login = () => {
     const [email, setEmail] = useState(''); // useState for email

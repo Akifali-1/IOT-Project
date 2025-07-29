@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import ai from '../assets/ai.png';
+
 import './temp.css';
-import sensor from '../assets/sensor.png';
-import wifi from '../assets/wifi.png';
+
 
 import { initializeWebSocket, subscribeToMessages } from './websocketUtils';
 

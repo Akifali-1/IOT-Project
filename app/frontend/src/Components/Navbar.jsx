@@ -2,17 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Navbar.css';
-import userI from '../assets/user.svg';
-import home from '../assets/home.svg';
-import message from '../assets/message.svg';
-import reports from '../assets/reports.svg';
-import settings from '../assets/settings.svg';
-import devises from '../assets/devises.svg';
-import log from '../assets/log.svg';
-import logout from '../assets/logout.svg';
-import bill from '../assets/bill.svg';
-import bar from '../assets/bar-chart.png';
-import elec from '../assets/electricity.png';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
