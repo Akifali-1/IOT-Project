@@ -3,7 +3,8 @@ const express = require('express')
 const { connectUserDB, connectDevicesDB } = require('./config/db');
 const cors = require('cors');
 const initializeWebSocket = require('./websocket.js');
-const DeviceUsage = require('./models/deviceUsage'); // Import the schema
+const DeviceUsageSchema = require('./models/deviceUsage'); // Import the schema function
+const mongoose = require('mongoose'); // Added for database connection status test
 
 // Call the function to start the server and WebSocket
 initializeWebSocket();
@@ -15,8 +16,17 @@ const PORT = process.env.PORT || 8080;
 const initializeDB = async () => {
     try {
         await connectUserDB();
-        await connectDevicesDB();
+        const devicesConnection = await connectDevicesDB();
+        
+        // Create DeviceUsage model with the devices connection
+        const DeviceUsage = DeviceUsageSchema(devicesConnection);
+        
         console.log('All database connections established');
+        
+        // Make DeviceUsage available globally for routes
+        app.locals.DeviceUsage = DeviceUsage;
+        
+        return { DeviceUsage };
     } catch (error) {
         console.error('Failed to connect to databases:', error.message);
         process.exit(1); // Exit if database connection fails
@@ -24,7 +34,13 @@ const initializeDB = async () => {
 };
 
 // Initialize databases
-initializeDB();
+initializeDB().then(({ DeviceUsage: model }) => {
+    // DeviceUsage is now available in app.locals.DeviceUsage
+    console.log('Database initialization completed');
+}).catch(error => {
+    console.error('Database initialization failed:', error);
+    process.exit(1);
+});
 
 // CORS configuration - more flexible for deployment
 const allowedOrigins = [
@@ -63,8 +79,43 @@ app.get('/api/test/env', (req, res) => {
     res.json(envVars);
 });
 
+// Test endpoint to check database connections
+app.get('/api/test/db', async (req, res) => {
+    try {
+        const DeviceUsage = req.app.locals.DeviceUsage;
+        if (!DeviceUsage) {
+            return res.status(500).json({ 
+                status: 'error', 
+                message: 'DeviceUsage model not available - database not initialized' 
+            });
+        }
+
+        // Test both databases
+        const userConnection = mongoose.connection.readyState;
+        const deviceConnection = DeviceUsage.db.db.admin().ping();
+
+        res.json({
+            status: 'success',
+            userDB: userConnection === 1 ? 'connected' : 'disconnected',
+            deviceDB: 'connected',
+            message: 'Both databases are working'
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: 'error',
+            message: 'Database test failed',
+            error: error.message
+        });
+    }
+});
+
 app.get('/api/devices/calculateUsage', async (req, res) => {
     try {
+        const DeviceUsage = req.app.locals.DeviceUsage;
+        if (!DeviceUsage) {
+            return res.status(500).json({ message: 'Database not initialized' });
+        }
+
         const usages = await DeviceUsage.find(); // Fetch usage records from the database   
 
         if (!usages.length) {
@@ -115,6 +166,11 @@ app.get('/api/devices/calculateUsage', async (req, res) => {
 
 app.get('/api/devices/weeklyUsage', async (req, res) => {
     try {
+        const DeviceUsage = req.app.locals.DeviceUsage;
+        if (!DeviceUsage) {
+            return res.status(500).json({ message: 'Database not initialized' });
+        }
+
         const usages = await DeviceUsage.find(); // Fetch usage records
         const dailyUsage = Array(7).fill(0); // Initialize usage for 7 days (Sunday to Saturday)
 
@@ -177,6 +233,11 @@ app.get('/api/devices/weeklyUsage', async (req, res) => {
 
 app.delete('/api/devices/clearUsage', async (req, res) => {
     try {
+        const DeviceUsage = req.app.locals.DeviceUsage;
+        if (!DeviceUsage) {
+            return res.status(500).json({ message: 'Database not initialized' });
+        }
+
         await DeviceUsage.deleteMany({}); // Adjust based on your database schema
         res.status(200).send({ message: 'All usage data cleared successfully.' });
     } catch (error) {

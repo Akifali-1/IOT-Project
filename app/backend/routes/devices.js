@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Device = require('../models/device');
-const DeviceUsage = require('../models/deviceUsage');
 
 // GET all devices for a specific room
 router.get('/:room', async (req, res) => {
@@ -37,8 +36,6 @@ router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
 
-
-
     try {
         const updatedDevice = await Device.findByIdAndUpdate(
             id,
@@ -48,6 +45,12 @@ router.put('/:id', async (req, res) => {
         
         if (!updatedDevice) {
             return res.status(404).json({ message: 'Device not found' });
+        }
+
+        // Get DeviceUsage from app locals
+        const DeviceUsage = req.app.locals.DeviceUsage;
+        if (!DeviceUsage) {
+            return res.status(500).json({ message: 'Database not initialized' });
         }
 
         // Log the device usage
@@ -98,46 +101,40 @@ router.delete('/:id', async (req, res) => {
 router.post('/toggleDevice', async (req, res) => {
     const { deviceName, room, status } = req.body;
 
-    if (!['on', 'off'].includes(status)) {
-        return res.status(400).json({ message: 'Invalid status. Use "on" or "off".' });
-    }
-
     try {
-        const updatedDevice = await Device.findOneAndUpdate(
-            { name: deviceName, room },
-            { status, lastUpdated: new Date() },
-            { new: true }
-        );
-
-        if (!updatedDevice) {
-            return res.status(404).json({ message: 'Device not found.' });
+        // Get DeviceUsage from app locals
+        const DeviceUsage = req.app.locals.DeviceUsage;
+        if (!DeviceUsage) {
+            return res.status(500).json({ message: 'Database not initialized' });
         }
 
+        // Log the device usage
         const activeLog = await DeviceUsage.findOne({
-            deviceName,
-            room,
+            deviceName: deviceName,
+            room: room,
             status: 'on',
             endTime: null,
         });
 
         if (status === 'on') {
+            // If turning ON, create a new usage log
             const newUsage = new DeviceUsage({
-                deviceName,
-                room,
+                deviceName: deviceName,
+                room: room,
                 startTime: new Date(),
                 status: 'on',
             });
             await newUsage.save();
         } else if (status === 'off' && activeLog) {
+            // If turning OFF, update the last usage log
             activeLog.endTime = new Date();
             activeLog.status = 'off';
             await activeLog.save();
         }
 
-        return res.status(200).json({ message: `Device ${status} updated`, device: updatedDevice });
+        res.json({ message: 'Device usage logged successfully' });
     } catch (error) {
-        console.error('Error in toggleDevice:', error.message);
-        return res.status(500).json({ message: 'An error occurred.', error: error.message });
+        res.status(500).json({ message: 'Error logging device usage', error: error.message });
     }
 });
 

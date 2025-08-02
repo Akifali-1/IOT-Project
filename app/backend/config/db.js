@@ -46,18 +46,27 @@ const connectDevicesDB = async () => {
         // Create a new connection for the devices database
         console.log('Attempting to connect to DevicesDB...');
         const devicesConnection = mongoose.createConnection(mongoDeviceURI, {
-        
             serverSelectionTimeoutMS: 10000, // Increased timeout
             socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
         });
 
-        devicesConnection.on('connected', () => {
-            console.log('DevicesDB connected successfully');
-        });
+        // Wait for the connection to be established
+        await new Promise((resolve, reject) => {
+            devicesConnection.on('connected', () => {
+                console.log('DevicesDB connected successfully');
+                resolve(devicesConnection);
+            });
 
-        devicesConnection.on('error', (err) => {
-            console.error('DevicesDB connection error:', err.message);
-            console.error('Full error:', err);
+            devicesConnection.on('error', (err) => {
+                console.error('DevicesDB connection error:', err.message);
+                console.error('Full error:', err);
+                reject(err);
+            });
+
+            // Set a timeout in case the connection doesn't establish
+            setTimeout(() => {
+                reject(new Error('DevicesDB connection timeout'));
+            }, 15000);
         });
 
         return devicesConnection; // Return the connection instance

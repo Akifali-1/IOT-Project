@@ -8,4 +8,7 @@ const deviceUsageSchema = new mongoose.Schema({
   status: { type: String, required: true },    // ON or OFF
 });
 
-module.exports = mongoose.model('DeviceUsage', deviceUsageSchema);
+// Export a function that creates the model with the correct connection
+module.exports = (devicesConnection) => {
+  return devicesConnection.model('DeviceUsage', deviceUsageSchema);
+};
