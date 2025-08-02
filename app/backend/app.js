@@ -11,14 +11,44 @@ initializeWebSocket();
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+// Initialize database connections
+const initializeDB = async () => {
+    try {
+        await connectUserDB();
+        await connectDevicesDB();
+        console.log('All database connections established');
+    } catch (error) {
+        console.error('Failed to connect to databases:', error.message);
+        process.exit(1); // Exit if database connection fails
+    }
+};
 
-connectUserDB();
-connectDevicesDB();
+// Initialize databases
+initializeDB();
+
+// CORS configuration - more flexible for deployment
+const allowedOrigins = [
+    'https://smarthome-peach.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:5173',
+    process.env.FRONTEND_URL // Allow environment variable for frontend URL
+].filter(Boolean); // Remove any undefined values
 
 app.use(cors({
-    origin: 'https://smarthome-peach.vercel.app', // replace with your actual frontend URL
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            console.log('CORS blocked origin:', origin);
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true
 }));
+
 app.use(express.json({ extended: false }));
 
 app.get('/api/devices/calculateUsage', async (req, res) => {

@@ -1,18 +1,22 @@
 const mongoose = require('mongoose');
-require('dns').setServers(['8.8.8.8']);
-
 
 const connectUserDB = async () => {
     try {
         const mongoUserURI = process.env.MONGO_USER_URI;
+        
+        if (!mongoUserURI) {
+            throw new Error('MONGO_USER_URI environment variable is not set');
+        }
 
         if (mongoose.connection.readyState === 0) {
             // Connect if not already connected
             await mongoose.connect(mongoUserURI, {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
+                serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+                socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
             });
-            console.log('UserDB connected');
+            console.log('UserDB connected successfully');
         } else {
             console.log('UserDB already connected');
         }
@@ -26,15 +30,21 @@ const connectUserDB = async () => {
 const connectDevicesDB = async () => {
     try {
         const mongoDeviceURI = process.env.MONGO_DEVICE_URI;
+        
+        if (!mongoDeviceURI) {
+            throw new Error('MONGO_DEVICE_URI environment variable is not set');
+        }
 
         // Create a new connection for the devices database
         const devicesConnection = mongoose.createConnection(mongoDeviceURI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
+            serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+            socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
         });
 
         devicesConnection.on('connected', () => {
-            console.log('DevicesDB connected');
+            console.log('DevicesDB connected successfully');
         });
 
         devicesConnection.on('error', (err) => {
