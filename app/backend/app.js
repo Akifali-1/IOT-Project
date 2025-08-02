@@ -51,6 +51,18 @@ app.use(cors({
 
 app.use(express.json({ extended: false }));
 
+// Test endpoint to check environment variables (remove in production)
+app.get('/api/test/env', (req, res) => {
+    const envVars = {
+        MONGO_USER_URI: process.env.MONGO_USER_URI ? 'SET' : 'NOT SET',
+        MONGO_DEVICE_URI: process.env.MONGO_DEVICE_URI ? 'SET' : 'NOT SET',
+        JWT_SECRET: process.env.JWT_SECRET ? 'SET' : 'NOT SET',
+        PORT: process.env.PORT || '8080',
+        NODE_ENV: process.env.NODE_ENV || 'development'
+    };
+    res.json(envVars);
+});
+
 app.get('/api/devices/calculateUsage', async (req, res) => {
     try {
         const usages = await DeviceUsage.find(); // Fetch usage records from the database   
