@@ -4,11 +4,6 @@ const cors = require('cors');
 const WebSocket = require('ws');
 const Device = require('./models/device'); // Import the Device model
 
-// MongoDB connection
-mongoose.connect('mongodb://localhost:27017/User')
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((error) => console.error('MongoDB connection error:', error));
-
 // Wrap everything in a function to initialize WebSocket and Express app
 function initializeWebSocket() {
   const app = express();

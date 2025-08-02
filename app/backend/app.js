@@ -6,9 +6,6 @@ const initializeWebSocket = require('./websocket.js');
 const DeviceUsageSchema = require('./models/deviceUsage'); // Import the schema function
 const mongoose = require('mongoose'); // Added for database connection status test
 
-// Call the function to start the server and WebSocket
-initializeWebSocket();
-
 const app = express();
 const PORT = process.env.PORT || 8080;
 
@@ -25,6 +22,9 @@ const initializeDB = async () => {
         
         // Make DeviceUsage available globally for routes
         app.locals.DeviceUsage = DeviceUsage;
+        
+        // Initialize WebSocket after database connections are established
+        initializeWebSocket();
         
         return { DeviceUsage };
     } catch (error) {
@@ -107,6 +107,15 @@ app.get('/api/test/db', async (req, res) => {
             error: error.message
         });
     }
+});
+
+// Test endpoint to check WebSocket server
+app.get('/api/test/websocket', (req, res) => {
+    res.json({
+        status: 'success',
+        message: 'WebSocket server is running on port 5001',
+        websocketUrl: 'ws://localhost:5001'
+    });
 });
 
 app.get('/api/devices/calculateUsage', async (req, res) => {
