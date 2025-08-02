@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import axios from 'axios';
 import './utility.css';
+
 const WeeklyUsageChart = () => {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
     const [chartData, setChartData] = useState({
         labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
         datasets: [
@@ -27,7 +30,9 @@ const WeeklyUsageChart = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/devices/weeklyUsage');
+                setLoading(true);
+                setError('');
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/devices/weeklyUsage`);
                 const data = response.data;
 
                 // Extract usage data and labels dynamically from response
@@ -46,11 +51,22 @@ const WeeklyUsageChart = () => {
                 }));
             } catch (error) {
                 console.error('Error fetching weekly usage:', error);
+                setError('Failed to fetch weekly usage data');
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchData();
     }, []);
+
+    if (loading) {
+        return <div className="flex justify-center items-center">Loading...</div>;
+    }
+
+    if (error) {
+        return <div className="flex justify-center items-center text-red-500">Error: {error}</div>;
+    }
 
     return (
         <div className="flex justify-center items-center ml-[5.6rem] ">

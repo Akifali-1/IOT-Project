@@ -3,7 +3,7 @@ import { sendMessage } from "./websocketUtils";
 // Fetch devices for a specific room
 export const fetchDevices = async (setDevices, setDeviceStates, room) => {
     try {
-        const response = await fetch(`http://localhost:8080/api/devices/${room}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/devices/${room}`);
         if (response.ok) {
             const data = await response.json();
             setDevices(data);

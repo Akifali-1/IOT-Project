@@ -20,7 +20,7 @@ const BillPage = () => {
         setSuccessMessage('');
 
         try {
-            const response = await fetch('http://localhost:8080/api/devices/calculateUsage');
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/devices/calculateUsage`);
 
             if (!response.ok) {
                 const errorData = await response.json();
@@ -50,7 +50,7 @@ const BillPage = () => {
         setSuccessMessage('');
 
         try {
-            const response = await fetch('http://localhost:8080/api/devices/clearUsage', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/devices/clearUsage`, {
                 method: 'DELETE',
             });
 

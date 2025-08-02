@@ -17,32 +17,36 @@ const DeviceUsageBarGraph = () => {
   const [usageData, setUsageData] = useState([]);
   const [totalBill, setTotalBill] = useState(0);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [totalUsage, setTotalUsage] = useState(0);
 
   // Fetch device usage data
   useEffect(() => {
-    fetch("http://localhost:8080/api/devices/calculateUsage")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch usage data.");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (!data.usageData || data.usageData.length === 0) {
-          setUsageData([]); // Ensure usageData is an empty array
-          setTotalBill(0);
-          setError("No device usage data available.");
-        } else {
-          setUsageData(data.usageData);
-          setTotalBill(data.totalBill);
-          setError("");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching device usage data:", error.message);
-        setError("An error occurred while fetching the device usage data.");
-      });
+    fetchUsageData();
   }, []);
+
+  const fetchUsageData = async () => {
+    try {
+      setLoading(true);
+      fetch(`${import.meta.env.VITE_API_URL}/api/devices/calculateUsage`)
+        .then(response => response.json())
+        .then(data => {
+          setUsageData(data.usageData || []);
+          setTotalUsage(data.totalDuration || 0);
+          setTotalBill(data.totalBill || 0);
+          setLoading(false);
+        })
+        .catch(error => {
+          console.error('Error fetching usage data:', error);
+          setError('Failed to fetch usage data');
+          setLoading(false);
+        });
+    } catch (error) {
+      console.error('Error:', error);
+      setError('An error occurred');
+      setLoading(false);
+    }
+  };
 
   // Prepare data for the bar chart
   const chartData = {

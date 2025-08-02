@@ -30,7 +30,7 @@ function Device() {
         };
         const normalizedDevice = deviceSynonyms[deviceType.trim().toLowerCase()]
         try {
-            const response = await fetch('http://localhost:8080/api/devices', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/devices`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name: normalizedDevice, status: 'off', room: normalizedRoom }),

@@ -45,6 +45,9 @@ initializeDB().then(({ DeviceUsage: model }) => {
 // CORS configuration - more flexible for deployment
 const allowedOrigins = [
     'https://smarthome-peach.vercel.app',
+    'https://iot-project-frontend.vercel.app',
+    'https://iot-project-frontend-git-main.vercel.app',
+    'https://iot-project-frontend-git-master.vercel.app',
     'http://localhost:3000',
     'http://localhost:5173',
     process.env.FRONTEND_URL // Allow environment variable for frontend URL
@@ -54,6 +57,9 @@ app.use(cors({
     origin: function (origin, callback) {
         // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
+        
+        // Log the origin for debugging
+        console.log('Request from origin:', origin);
         
         if (allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
