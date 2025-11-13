@@ -1,56 +1,57 @@
-# Frontend Deployment Guide for Vercel
+# Frontend Deployment Guide
 
-## Environment Variables Setup
+## Deploying to Vercel
 
-### 1. Set Environment Variables in Vercel
+### Environment Variables Setup
 
-1. Go to your Vercel dashboard
-2. Select your frontend project
-3. Go to **Settings** → **Environment Variables**
-4. Add the following environment variable:
+1. Go to your Vercel dashboard.
+2. Select your frontend project.
+3. Navigate to **Settings → Environment Variables**.
+4. Add the following variables (all environments: Production, Preview, Development):
+   - `VITE_API_URL=https://iot-project-4.onrender.com`
+   - `VITE_WS_URL=wss://iot-project-4.onrender.com`
 
-**Variable Name:** `VITE_API_URL`
-**Value:** `https://iot-project-4.onrender.com`
-**Environment:** Production, Preview, Development
+### Redeploy After Updating Variables
 
-### 2. Redeploy Your Frontend
+1. Go to the **Deployments** tab.
+2. Click **Redeploy** on the most recent deployment so the new values are baked into the bundle.
 
-After setting the environment variable:
-1. Go to your project in Vercel
-2. Click **Deployments**
-3. Click **Redeploy** on your latest deployment
+## Deploying to Railway
+
+### Service Configuration
+
+1. In your Railway project, add a new **Static Site** (or **Node** service if you prefer `serve`).
+2. Set the project root to `app/frontend`.
+3. Recommended commands:
+   - **Build Command:** `npm install && npm run build`
+   - **Start Command (Static Site):** leave empty – Railway will serve `dist/`.
+   - **Start Command (Node service):** `npm install -g serve && serve -s dist`
+
+### Environment Variables
+
+Set the following on the Railway frontend service:
+- `VITE_API_URL=https://<your-backend-service>.up.railway.app`
+- `VITE_WS_URL=wss://<your-backend-service>.up.railway.app`
+
+Redeploy the service whenever these variables change.
 
 ## Local Development
 
-For local development, create a `.env.local` file in the frontend directory:
+Create a `.env.local` in the `frontend` directory:
 
 ```
 VITE_API_URL=http://localhost:8080
+VITE_WS_URL=ws://localhost:8080
 ```
 
-## Testing Your Setup
+## Testing Checklist
 
-1. **Check Environment Variables**: Visit your deployed frontend and open browser console
-2. **Test Signup/Login**: Try the signup and login functionality
-3. **Test API Calls**: Check if all API calls are working
+1. Confirm environment variables in the deployed app via browser devtools.
+2. Exercise signup/login flows to ensure API connectivity.
+3. Toggle devices and confirm WebSocket updates arrive without errors.
 
-## Common Issues
+## Troubleshooting
 
-### Issue: "VITE_API_URL is not defined"
-- Make sure the environment variable is set in Vercel
-- Redeploy after setting the variable
-
-### Issue: CORS errors
-- Check that your backend CORS settings include your Vercel domain
-- Update backend CORS if needed
-
-### Issue: API calls still going to localhost
-- Clear browser cache
-- Hard refresh the page (Ctrl+F5)
-- Check that the environment variable is correctly set
-
-## Backend URL
-
-Your backend is deployed at: `https://iot-project-4.onrender.com`
-
-Make sure this URL is correct in your environment variables. 
+- **"VITE_* is not defined"**: Check that the variable exists in the hosting provider and redeploy the frontend.
+- **CORS errors**: Ensure the backend `FRONTEND_URL` contains your deployed frontend domain.
+- **API calls hitting localhost**: Clear browser cache and verify the `.env` values baked into the build.

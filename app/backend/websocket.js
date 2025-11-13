@@ -1,19 +1,16 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
 const WebSocket = require('ws');
 const Device = require('./models/device'); // Import the Device model
 
-// Wrap everything in a function to initialize WebSocket and Express app
-function initializeWebSocket() {
-  const app = express();
-  app.use(cors());
-  app.use(express.json());
+// Initialize WebSocket on the provided HTTP/S server
+function initializeWebSocket(server, app) {
+  if (!server) {
+    throw new Error('HTTP server instance is required to initialize WebSocket');
+  }
 
-  // HTTP server setup
-  const server = app.listen(5001, () => console.log('HTTP Server running on http://localhost:5001'));
+  if (!app) {
+    throw new Error('Express app instance is required to register WebSocket routes');
+  }
 
-  // WebSocket setup
   const wss = new WebSocket.Server({ server });
 
   wss.on('connection', (ws) => {

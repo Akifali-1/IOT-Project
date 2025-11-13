@@ -2,7 +2,21 @@
 let socket = null;
 const subscribers = [];
 
-export const initializeWebSocket = (url = 'ws://localhost:5001') => {
+const getDefaultWebSocketUrl = () => {
+    if (import.meta.env.VITE_WS_URL) {
+        return import.meta.env.VITE_WS_URL;
+    }
+
+    if (typeof window !== 'undefined' && window.location) {
+        const { protocol, host } = window.location;
+        const wsProtocol = protocol === 'https:' ? 'wss:' : 'ws:';
+        return `${wsProtocol}//${host}`;
+    }
+
+    return 'ws://localhost:5001';
+};
+
+export const initializeWebSocket = (url = getDefaultWebSocketUrl()) => {
     if (!socket) {
         socket = new WebSocket(url);
 
@@ -22,7 +36,9 @@ export const initializeWebSocket = (url = 'ws://localhost:5001') => {
 
         socket.onclose = () => {
             console.warn('WebSocket connection closed. Reconnecting...');
-            setTimeout(() => initializeWebSocket(url), 5000); // Auto-reconnect
+            const retryUrl = url;
+            socket = null;
+            setTimeout(() => initializeWebSocket(retryUrl), 5000); // Auto-reconnect
         };
     }
     return socket;

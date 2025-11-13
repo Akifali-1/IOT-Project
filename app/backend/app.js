@@ -1,5 +1,6 @@
 const dotenv = require('dotenv').config();
 const express = require('express')
+const http = require('http');
 const { connectUserDB, connectDevicesDB } = require('./config/db');
 const cors = require('cors');
 const initializeWebSocket = require('./websocket.js');
@@ -7,6 +8,7 @@ const DeviceUsageSchema = require('./models/deviceUsage'); // Import the schema 
 const mongoose = require('mongoose'); // Added for database connection status test
 
 const app = express();
+const server = http.createServer(app);
 const PORT = process.env.PORT || 8080;
 
 // Initialize database connections
@@ -23,9 +25,6 @@ const initializeDB = async () => {
         // Make DeviceUsage available globally for routes
         app.locals.DeviceUsage = DeviceUsage;
         
-        // Initialize WebSocket after database connections are established
-        initializeWebSocket();
-        
         return { DeviceUsage };
     } catch (error) {
         console.error('Failed to connect to databases:', error.message);
@@ -34,13 +33,19 @@ const initializeDB = async () => {
 };
 
 // Initialize databases
-initializeDB().then(({ DeviceUsage: model }) => {
-    // DeviceUsage is now available in app.locals.DeviceUsage
-    console.log('Database initialization completed');
-}).catch(error => {
-    console.error('Database initialization failed:', error);
-    process.exit(1);
-});
+initializeDB()
+    .then(({ DeviceUsage: model }) => {
+        // DeviceUsage is now available in app.locals.DeviceUsage
+        console.log('Database initialization completed');
+        initializeWebSocket(server, app);
+        server.listen(PORT, '0.0.0.0', () => {
+            console.log(`App listening on PORT:${PORT}`);
+        });
+    })
+    .catch(error => {
+        console.error('Database initialization failed:', error);
+        process.exit(1);
+    });
 
 // CORS configuration - more flexible for deployment
 const allowedOrigins = [
@@ -267,9 +272,3 @@ app.delete('/api/devices/clearUsage', async (req, res) => {
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/devices', require('./routes/devices'));
 
-
-
-
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`App listening on PORT:${PORT}`);
-});
