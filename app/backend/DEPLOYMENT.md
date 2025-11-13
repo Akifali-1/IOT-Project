@@ -38,6 +38,7 @@ Regardless of the hosting provider, make sure the following variables are set:
 4. **Set Environment Variables** in Render dashboard:
    - Go to your service → Environment
    - Add all required environment variables
+   - Set `FRONTEND_URL=https://iot-project-frontend-xmov.onrender.com` (update if the frontend domain changes)
 
 5. **Deploy** and check the logs for any errors
 

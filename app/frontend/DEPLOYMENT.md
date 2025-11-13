@@ -16,20 +16,20 @@ Render will host the compiled assets over HTTPS automatically.
 ### Environment Variables
 
 Add these variables under the Render service **Environment** tab:
-- `VITE_API_URL=https://your-backend-service.onrender.com`
-- `VITE_WS_URL=wss://your-backend-service.onrender.com`
+- `VITE_API_URL=https://iot-project-1pup.onrender.com`
+- `VITE_WS_URL=wss://iot-project-1pup.onrender.com`
 
 Redeploy the site whenever you update these values or change backend domains.
 
 ### Connect to the Backend
 
-After the backend is deployed on Render, copy its URL (for example, `https://iot-project-backend.onrender.com`) and replace `your-backend-service` in the variables above. Rebuild the frontend so the URLs are bundled into the static assets.
+After the backend is deployed on Render, copy its URL (`https://iot-project-1pup.onrender.com`) and plug it into the variables above. Rebuild the frontend so the URLs are bundled into the static assets.
 
 ## Deploying to Vercel (Alternative)
 
 Follow the same environment variables pattern in Vercel:
-- `VITE_API_URL=https://your-backend-service.onrender.com`
-- `VITE_WS_URL=wss://your-backend-service.onrender.com`
+- `VITE_API_URL=https://iot-project-1pup.onrender.com`
+- `VITE_WS_URL=wss://iot-project-1pup.onrender.com`
 
 Remember to redeploy after any changes.
 

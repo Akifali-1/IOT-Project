@@ -53,6 +53,7 @@ const allowedOrigins = [
     'https://iot-project-frontend.vercel.app',
     'https://iot-project-frontend-git-main.vercel.app',
     'https://iot-project-frontend-git-master.vercel.app',
+    'https://iot-project-frontend-xmov.onrender.com',
     'http://localhost:3000',
     'http://localhost:5173',
     process.env.FRONTEND_URL // Allow environment variable for frontend URL

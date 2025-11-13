@@ -13,7 +13,7 @@ const getDefaultWebSocketUrl = () => {
         return `${wsProtocol}//${host}`;
     }
 
-    return 'ws://localhost:5001';
+    return 'ws://localhost:8080';
 };
 
 export const initializeWebSocket = (url = getDefaultWebSocketUrl()) => {
