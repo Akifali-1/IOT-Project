@@ -36,7 +36,7 @@ const Home = ({ isAuthenticated }) => {
                     <div className="card1">
                         <div className="card2">
                             <div className="card21"></div>
-                            <img src="src/assets/dashboard_mobile.jpg" className='card22' alt="" />
+                            <img src="/assets/dashboard_mobile.jpg" className='card22' alt="" />
                         </div>
                     </div>
                     <Link to="/guest_login">
@@ -49,7 +49,7 @@ const Home = ({ isAuthenticated }) => {
                             <div className="containerleft">
                                 Effortlessly control your surroundings with our IoT-based voice automation system. From home to office, hotel, or outdoor spaces, manage lighting, security, and climate with a simple command. Experience the ease and convenience of a smart, responsive environment tailored to your daily life.
                             </div>
-                            <img src="src/assets/image1.jpg" className='containeright' alt="iot image" />
+                            <img src="/assets/image1.jpg" className='containeright' alt="iot image" />
                         </div>
                     </div>
 
