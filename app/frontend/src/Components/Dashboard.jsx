@@ -77,8 +77,8 @@ const Dashboard = () => {
     };
     setAcStatus(initialAcStatus);
 
-    const socket = initializeWebSocket();
-    subscribeToMessages(({ device, status, room }) => {
+    initializeWebSocket();
+    const unsubscribe = subscribeToMessages(({ device, status, room }) => {
       const formattedRoom = Object.keys(roomMapping).find(
         (key) => roomMapping[key] === room
       );
@@ -91,6 +91,10 @@ const Dashboard = () => {
       }
   
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
@@ -175,7 +179,8 @@ const Dashboard = () => {
       setFanSpeed(storedFanSpeeds);
     }
 
-    subscribeToMessages(({ device, status, speed, room }) => {
+    initializeWebSocket();
+    const unsubscribe = subscribeToMessages(({ device, status, speed, room }) => {
       const formattedRoom = Object.keys(roomMapping).find(
         (key) => roomMapping[key] === room
       );
@@ -195,6 +200,10 @@ const Dashboard = () => {
         }
       }
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
 
@@ -263,7 +272,8 @@ const Dashboard = () => {
       setLightBrightness(storedBrightness);
     }
 
-    subscribeToMessages(({ device, status, brightness, room }) => {
+    initializeWebSocket();
+    const unsubscribe = subscribeToMessages(({ device, status, brightness, room }) => {
       const formattedRoom = Object.keys(roomMapping).find(
         (key) => roomMapping[key] === room
       );
@@ -284,6 +294,10 @@ const Dashboard = () => {
         }
       }
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   const increaseLightBrightness = () => {

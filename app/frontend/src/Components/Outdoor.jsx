@@ -26,9 +26,9 @@ function Outdoor() {
     useEffect(() => {
         fetchDevices(setDevices, setDeviceStates, 'outdoor');
 
-        const socket = initializeWebSocket();
+        initializeWebSocket();
 
-        subscribeToMessages(({ device, status, room }) => {
+        const unsubscribe = subscribeToMessages(({ device, status, room }) => {
             if (room === 'outdoor') {
                 setDeviceStates((prevStates) => ({
                     ...prevStates,
@@ -36,6 +36,10 @@ function Outdoor() {
                 }));
             }
         });
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
     return (

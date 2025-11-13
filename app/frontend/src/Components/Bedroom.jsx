@@ -25,9 +25,9 @@ function Bedroom() {
     useEffect(() => {
         fetchDevices(setDevices, setDeviceStates, 'bedroom');
 
-        const socket = initializeWebSocket();
+        initializeWebSocket();
 
-        subscribeToMessages(({ device, status, room }) => {
+        const unsubscribe = subscribeToMessages(({ device, status, room }) => {
             if (room === 'bedroom') {
                 setDeviceStates((prevStates) => ({
                     ...prevStates,
@@ -35,6 +35,10 @@ function Bedroom() {
                 }));
             }
         });
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
     return (

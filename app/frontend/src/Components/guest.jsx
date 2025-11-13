@@ -74,8 +74,8 @@ const Guest = () => {
     };
     setAcStatus(initialAcStatus);
 
-    const socket = initializeWebSocket();
-    subscribeToMessages(({ device, status, room }) => {
+    initializeWebSocket();
+    const unsubscribe = subscribeToMessages(({ device, status, room }) => {
       const formattedRoom = Object.keys(roomMapping).find(
         (key) => roomMapping[key] === room
       );
@@ -88,6 +88,10 @@ const Guest = () => {
       }
 
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
@@ -172,7 +176,8 @@ const Guest = () => {
       setFanSpeed(storedFanSpeeds);
     }
 
-    subscribeToMessages(({ device, status, speed, room }) => {
+    initializeWebSocket();
+    const unsubscribe = subscribeToMessages(({ device, status, speed, room }) => {
       const formattedRoom = Object.keys(roomMapping).find(
         (key) => roomMapping[key] === room
       );
@@ -192,6 +197,10 @@ const Guest = () => {
         }
       }
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
 
@@ -260,7 +269,8 @@ const Guest = () => {
       setLightBrightness(storedBrightness);
     }
 
-    subscribeToMessages(({ device, status, brightness, room }) => {
+    initializeWebSocket();
+    const unsubscribe = subscribeToMessages(({ device, status, brightness, room }) => {
       const formattedRoom = Object.keys(roomMapping).find(
         (key) => roomMapping[key] === room
       );
@@ -281,6 +291,10 @@ const Guest = () => {
         }
       }
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   const increaseLightBrightness = () => {

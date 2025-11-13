@@ -16,8 +16,8 @@ const Temp = () => {
     }, 1000);
 
     // Initialize WebSocket and listen for temperature updates
-    const socket = initializeWebSocket();
-    subscribeToMessages((message) => {
+    initializeWebSocket();
+    const unsubscribe = subscribeToMessages((message) => {
       const { device, temperature, room } = message;
       if (device === 'temperature_sensor' && room === 'livingroom') {
         setTemperature(temperature);
@@ -26,7 +26,7 @@ const Temp = () => {
 
     return () => {
       clearInterval(interval);
-      socket.close(); // Clean up WebSocket connection
+      unsubscribe();
     };
   }, []);
 
@@ -36,22 +36,23 @@ const Temp = () => {
         <div className="Circle1"></div>
         <div className="Circle2"></div>
         <div className="Circle3"></div>
-        <div className="content">
-          <h1 className="Condition">
-            <li className="flex gap-2 mb-3">
-              <img className="size-5 invert opacity-80" src="/assets/wifi.png" alt="" />
-              <img className="size-5 invert opacity-90 " src="/assets/sensor.png" alt="" />
-            </li>
-            <i>
-              <img className="w-40 cloud2 -mt-8 sm:-ml-3 sm:w-32 sm:-mt-6" src="/assets/ai.png" alt="" />
-            </i>
-          </h1>
-          <h1 className="Temp mb-2 ml-[165px] text-[30px] sm:ml-[110px]">
-            {`${temperature}°`}<span className="font-serif">C</span>
-          </h1>
-          <h1 className="Time">{time}</h1>
-          <h1 className="Location">Last updated</h1>
+      </div>
+      <div className="content">
+        <div className="content-header">
+          <div className="status-icons">
+            <img className="size-5 invert opacity-80" src="/assets/wifi.png" alt="wifi status" />
+            <img className="size-5 invert opacity-90" src="/assets/sensor.png" alt="sensor status" />
+          </div>
+          <span className="time">{time}</span>
         </div>
+        <div className="content-body">
+          <img className="cloud2" src="/assets/ai.png" alt="sensor illustration" />
+          <span className="temperature">
+            {`${temperature}°`}
+            <span className="temperature-unit">C</span>
+          </span>
+        </div>
+        <span className="updated-label">Last updated</span>
       </div>
     </div>
   );

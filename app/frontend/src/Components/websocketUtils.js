@@ -30,7 +30,6 @@ export const initializeWebSocket = (url = getDefaultWebSocketUrl()) => {
 
         socket.onmessage = (event) => {
             const data = JSON.parse(event.data);
-            // Notify all subscribers with the received message
             subscribers.forEach((callback) => callback(data));
         };
 
@@ -38,7 +37,7 @@ export const initializeWebSocket = (url = getDefaultWebSocketUrl()) => {
             console.warn('WebSocket connection closed. Reconnecting...');
             const retryUrl = url;
             socket = null;
-            setTimeout(() => initializeWebSocket(retryUrl), 5000); // Auto-reconnect
+            setTimeout(() => initializeWebSocket(retryUrl), 5000);
         };
     }
     return socket;
@@ -47,16 +46,21 @@ export const initializeWebSocket = (url = getDefaultWebSocketUrl()) => {
 export const subscribeToMessages = (callback) => {
     if (typeof callback === 'function') {
         subscribers.push(callback);
+
+        return () => {
+            const index = subscribers.indexOf(callback);
+            if (index !== -1) {
+                subscribers.splice(index, 1);
+            }
+        };
     }
+    return () => {};
 };
 
 export const sendMessage = (message) => {
     if (socket && socket.readyState === WebSocket.OPEN) {
-        // console.log('Sending WebSocket message:', message); // Add logging for debugging
         socket.send(JSON.stringify(message));
-
     } else {
         console.warn('WebSocket is not open. Unable to send message:', message);
     }
 };
-

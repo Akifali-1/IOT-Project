@@ -49,8 +49,8 @@ const LeftMOBILE = () => {
     };
     setAcStatus(initialAcStatus);
 
-    const socket = initializeWebSocket();
-    subscribeToMessages(({ device, status, room }) => {
+    initializeWebSocket();
+    const unsubscribe = subscribeToMessages(({ device, status, room }) => {
       const formattedRoom = Object.keys(roomMapping).find(
         (key) => roomMapping[key] === room
       );
@@ -62,6 +62,10 @@ const LeftMOBILE = () => {
         localStorage.setItem(`${formattedRoom}AcStatus`, status);
       }
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
@@ -146,8 +150,8 @@ const LeftMOBILE = () => {
       setFanSpeed(storedFanSpeeds);
     }
 
-    const socket = initializeWebSocket();
-    subscribeToMessages(({ device, status, speed, room }) => {
+    initializeWebSocket();
+    const unsubscribe = subscribeToMessages(({ device, status, speed, room }) => {
       const formattedRoom = Object.keys(roomMapping).find(
         (key) => roomMapping[key] === room
       );
@@ -167,6 +171,10 @@ const LeftMOBILE = () => {
         }
       }
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
 
@@ -235,8 +243,8 @@ const LeftMOBILE = () => {
       setLightBrightness(storedBrightness);
     }
 
-    const socket = initializeWebSocket();
-    subscribeToMessages(({ device, status, brightness, room }) => {
+    initializeWebSocket();
+    const unsubscribe = subscribeToMessages(({ device, status, brightness, room }) => {
       const formattedRoom = Object.keys(roomMapping).find(
         (key) => roomMapping[key] === room
       );
@@ -256,6 +264,10 @@ const LeftMOBILE = () => {
         }
       }
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   const increaseLightBrightness = () => {

@@ -27,9 +27,9 @@ function LivingRoom() {
     useEffect(() => {
         fetchDevices(setDevices, setDeviceStates, 'livingroom');
 
-        const socket = initializeWebSocket();
+        initializeWebSocket();
 
-        subscribeToMessages(({ device, status, room }) => {
+        const unsubscribe = subscribeToMessages(({ device, status, room }) => {
             if (room === 'livingroom') {
                 if (status === 'alloff') {
                     // Turn off all devices in the living room
@@ -51,6 +51,10 @@ function LivingRoom() {
                 }
             }
         });
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
     return (

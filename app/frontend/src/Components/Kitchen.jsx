@@ -25,9 +25,9 @@ function Kitchen() {
     useEffect(() => {
         fetchDevices(setDevices, setDeviceStates, 'kitchen');
 
-        const socket = initializeWebSocket();
+        initializeWebSocket();
 
-        subscribeToMessages(({ device, status, room }) => {
+        const unsubscribe = subscribeToMessages(({ device, status, room }) => {
             if (room === 'kitchen') {
                 setDeviceStates((prevStates) => ({
                     ...prevStates,
@@ -35,6 +35,10 @@ function Kitchen() {
                 }));
             }
         });
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
     return (

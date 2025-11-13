@@ -24,9 +24,10 @@ export const fetchDevices = async (setDevices, setDeviceStates, room) => {
 
 // Toggle the state of a device
 export const toggleDevice = async (device, deviceStates, setDeviceStates, room) => {
+    const currentStatus = deviceStates[device.name];
+    const newStatus = currentStatus ? "off" : "on";
+
     try {
-        const currentStatus = deviceStates[device.name];
-        const newStatus = currentStatus ? "off" : "on";
 
         // Optimistically update state
         setDeviceStates((prevState) => ({
@@ -44,7 +45,7 @@ export const toggleDevice = async (device, deviceStates, setDeviceStates, room) 
         sendMessage(message);
 
         // Update the device state in the backend
-        const response = await fetch(`http://localhost:8080/api/devices/${device._id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/devices/${device._id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ status: newStatus }),
@@ -110,7 +111,7 @@ export const addDevice = async (
         !devices.some((d) => d.name === normalizedNewDevice)
     ) {
         try {
-            const response = await fetch("http://localhost:8080/api/devices", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/devices`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ name: normalizedNewDevice, status: "off", room }),
@@ -143,7 +144,7 @@ export const removeDevice = async (device, setDevices, setDeviceStates, isGuest)
     }
 
     try {
-        const response = await fetch(`http://localhost:8080/api/devices/${device._id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/devices/${device._id}`, {
             method: "DELETE",
         });
         if (response.ok) {
