@@ -59,23 +59,14 @@ const allowedOrigins = [
     process.env.FRONTEND_URL // Allow environment variable for frontend URL
 ].filter(Boolean); // Remove any undefined values
 
-app.use(cors({
-    origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        
-        // Log the origin for debugging
-        console.log('Request from origin:', origin);
-        
-        if (allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            console.log('CORS blocked origin:', origin);
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+const corsOptions = {
+    origin: allowedOrigins.length === 1 ? allowedOrigins[0] : allowedOrigins,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
-}));
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 app.use(express.json({ extended: false }));
 
