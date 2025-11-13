@@ -1,39 +1,41 @@
 # Frontend Deployment Guide
 
-## Deploying to Vercel
+## Deploying to Render (Recommended)
 
-### Environment Variables Setup
+### Service Setup
 
-1. Go to your Vercel dashboard.
-2. Select your frontend project.
-3. Navigate to **Settings → Environment Variables**.
-4. Add the following variables (all environments: Production, Preview, Development):
-   - `VITE_API_URL=https://iot-project-4.onrender.com`
-   - `VITE_WS_URL=wss://iot-project-4.onrender.com`
-
-### Redeploy After Updating Variables
-
-1. Go to the **Deployments** tab.
-2. Click **Redeploy** on the most recent deployment so the new values are baked into the bundle.
-
-## Deploying to Railway
-
-### Service Configuration
-
-1. In your Railway project, add a new **Static Site** (or **Node** service if you prefer `serve`).
-2. Set the project root to `app/frontend`.
-3. Recommended commands:
+1. In Render, create a new **Static Site** (or **Web Service** if you prefer running `serve`).
+2. Set the **Root Directory** to `app/frontend`.
+3. Use the following commands:
    - **Build Command:** `npm install && npm run build`
-   - **Start Command (Static Site):** leave empty – Railway will serve `dist/`.
-   - **Start Command (Node service):** `npm install -g serve && serve -s dist`
+   - **Publish Directory:** `dist`
+   - (If using a Web Service instead) **Start Command:** `npm install -g serve && serve -s dist`
+
+Render will host the compiled assets over HTTPS automatically.
 
 ### Environment Variables
 
-Set the following on the Railway frontend service:
-- `VITE_API_URL=https://<your-backend-service>.up.railway.app`
-- `VITE_WS_URL=wss://<your-backend-service>.up.railway.app`
+Add these variables under the Render service **Environment** tab:
+- `VITE_API_URL=https://your-backend-service.onrender.com`
+- `VITE_WS_URL=wss://your-backend-service.onrender.com`
 
-Redeploy the service whenever these variables change.
+Redeploy the site whenever you update these values or change backend domains.
+
+### Connect to the Backend
+
+After the backend is deployed on Render, copy its URL (for example, `https://iot-project-backend.onrender.com`) and replace `your-backend-service` in the variables above. Rebuild the frontend so the URLs are bundled into the static assets.
+
+## Deploying to Vercel (Alternative)
+
+Follow the same environment variables pattern in Vercel:
+- `VITE_API_URL=https://your-backend-service.onrender.com`
+- `VITE_WS_URL=wss://your-backend-service.onrender.com`
+
+Remember to redeploy after any changes.
+
+## Deploying to Railway (Alternative)
+
+If you later switch back to Railway, use the same build commands and set the env vars to the Railway backend’s domain (`https://<backend>.up.railway.app` and `wss://<backend>.up.railway.app`).
 
 ## Local Development
 
