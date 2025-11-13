@@ -6,23 +6,25 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 86.5vh;
+  min-height: 86.5vh;
   box-sizing: border-box;
   position: relative;
-  border: 2px solid #fff;
-  border-radius: 10px; 
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin: 20px 20px 20px 75px;
   background: #fff;
-   
+}
+
+.dark .bill-page {
+  background: #081229;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .bill-page h1 {
   color: #fff;
-  background: linear-gradient(135deg, #1e2a68,rgb(55,80,235));
+  background: linear-gradient(135deg, #1e2a68, rgb(55, 80, 235));
   border-radius: 5px;
-  text-decoration: underline #333;
-  font-size: 36px; 
+  font-size: 36px;
   font-weight: bold;
   text-align: center;
   width: 50%;
@@ -30,10 +32,13 @@
   margin-bottom: 20px;
   position: absolute;
   top: 20px;
-  left: 50%; 
+  left: 50%;
   transform: translateX(-50%);
 }
 
+.dark .bill-page h1 {
+  background: linear-gradient(135deg, #1e2a68, #2a3a8f);
+}
 
 /* Form container */
 .form {
@@ -45,37 +50,37 @@
 }
 
 /* Button styling */
-/* Button styling */
 .form button {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 25px;
-  font-size: 16px;
+  padding: 15px 25px;
+  font-size: 18px;
   cursor: pointer;
   background: linear-gradient(135deg, #1e2a68, #0f1f4e);
   color: white;
   border: none;
   border-radius: 8px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: all 0.3s ease;
   width: 100%;
   margin-top: 15px;
   top: 450px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .form button:hover {
   background: linear-gradient(135deg, #142063, #0b1a44);
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .form button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
-
-/* Remove background around "Calculate Total Bill" button */
-
 
 /* Result container */
 .result-container {
@@ -83,13 +88,25 @@
   font-size: 18px;
   font-weight: bold;
   color: #333;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dark .result-container {
+  color: #e2e8f0;
 }
 
 /* Error message */
 .error {
   color: #f44336;
   font-weight: bold;
- 
+  margin-top: 20px;
+}
+
+.dark .error {
+  color: #fc8181;
 }
 
 /* Logs container */
@@ -104,6 +121,10 @@
   font-size: 22px;
   margin-bottom: 10px;
   color: #333;
+}
+
+.dark .logs-container h2 {
+  color: #e2e8f0;
 }
 
 .logs-container ul {
@@ -121,30 +142,51 @@
   font-size: 16px;
 }
 
+.dark .logs-container li {
+  background: #1b1e38;
+  border: 1px solid #4a5568;
+  color: #e2e8f0;
+}
+
 .logs-container li:nth-child(even) {
   background-color: #f4f4f4;
+}
+
+.dark .logs-container li:nth-child(even) {
+  background-color: #2d3142;
 }
 
 .logs-container li:nth-child(odd) {
   background-color: #ffffff;
 }
 
+.dark .logs-container li:nth-child(odd) {
+  background-color: #1b1e38;
+}
+
 .bill-page .clear-btn {
   background-color: #ff4d4d;
   color: white;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-left: 10px;
- position: relative;
- bottom: 20px;
-  
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bill-page .clear-btn:hover {
+  background-color: #ff3333;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .bill-page .clear-btn:disabled {
   background-color: #ffcccc;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .bill-page .success {
@@ -153,21 +195,35 @@
   margin-top: 10px;
 }
 
+.dark .bill-page .success {
+  color: #68d391;
+}
+
 .result-container .clear-btn {
   background-color: #ff4d4d;
   color: white;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   margin-top: 15px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.result-container .clear-btn:hover {
+  background-color: #ff3333;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .result-container .clear-btn:disabled {
   background-color: #ffcccc;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
-
 
 .button-content {
   display: flex;
@@ -177,77 +233,97 @@
 
 .dollar-icon {
   font-size: 24px;
-  margin-right: 10px; 
+  margin-right: 10px;
 }
+
 .billcontainer {
   display: flex;
   justify-content: center;
-  align-items: flex-start; 
-  gap: 40px; 
- margin-bottom: 40px;
+  align-items: flex-start;
+  gap: 40px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
 }
 
 /* Common styling for both divs */
-.usagediv, .Electricitydiv {
-  border: 2px solid black;
+.usagediv,
+.Electricitydiv {
+  border: 2px solid #e2e8f0;
   border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  padding: 20px;
-  width: 295px; /* Adjusted size */
-  height: 195px; /* Adjusted size */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  width: 295px;
+  height: 195px;
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background: #f8fafc;
+  transition: all 0.3s ease;
+}
+
+.dark .usagediv,
+.dark .Electricitydiv {
+  border: 2px solid #4a5568;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: #1b1e38;
+}
+
+.usagediv:hover,
+.Electricitydiv:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.dark .usagediv:hover,
+.dark .Electricitydiv:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
 /* Styling for the headings inside each div */
-.usagediv .heading, .Electricitydiv .heading {
+.usagediv .heading,
+.Electricitydiv .heading {
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 10px; /* Space between heading and value */
-}
-
-/* Styling for the values inside each div */
-.usagediv .value, .Electricitydiv .value {
-  font-size: 24px;
-  font-weight: bold;
+  margin-bottom: 15px;
   color: #333;
 }
 
-/* Clear button styling inside the result container */
-.result-container .clear-btn {
-  background-color: #ff4d4d;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 20px; /* Add margin for better spacing */
+.dark .usagediv .heading,
+.dark .Electricitydiv .heading {
+  color: #e2e8f0;
 }
 
-.result-container .clear-btn:disabled {
-  background-color: #ffcccc;
-  cursor: not-allowed;
-}
-.bill-icon{
-
-  font-size: 24px;
-  margin-right: 10px; 
-}
-.energy-icon{
-  font-size: 24px;
-  margin-right: 10px; 
+/* Styling for the values inside each div */
+.usagediv .value,
+.Electricitydiv .value {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1e2a68;
 }
 
+.dark .usagediv .value,
+.dark .Electricitydiv .value {
+  color: #63b3ed;
+}
 
+.energy-icon,
+.bill-icon {
+  font-size: 28px;
+  color: #1e2a68;
+}
 
+.dark .energy-icon,
+.dark .bill-icon {
+  color: #63b3ed;
+}
 
 .result-container .heading-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px; /* Space between icon and text */
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
 .result-container .heading-container .heading {
@@ -257,13 +333,30 @@
 }
 
 .result-container .value {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
-  color: #333;
+  color: #1e2a68;
 }
 
-.energy-icon,
-.bill-icon {
-  font-size: 24px;
-  color: #1e2a68;
+.dark .result-container .value {
+  color: #63b3ed;
+}
+
+@media (max-width: 768px) {
+  .billcontainer {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .usagediv,
+  .Electricitydiv {
+    width: 90%;
+    max-width: 295px;
+  }
+
+  .bill-page h1 {
+    width: 90%;
+    font-size: 28px;
+  }
 }

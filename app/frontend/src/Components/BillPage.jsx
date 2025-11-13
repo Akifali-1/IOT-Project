@@ -73,42 +73,42 @@ const BillPage = () => {
     };
 
     return (
-        <div className="bill-page">
+        <div className="bill-page dark:bg-[#081229] bg-white">
             <div className='heading'>
-                <h1>Electricity Usage & Bill Calculator</h1>
-                {successMessage && <p className="success">{successMessage}</p>} {/* Success message below the heading */}
+                <h1 className="dark:text-white">Electricity Usage & Bill Calculator</h1>
+                {successMessage && <p className="success dark:text-green-400">{successMessage}</p>} {/* Success message below the heading */}
             </div>
             <div className="form">
-                <button onClick={fetchUsageData} disabled={loading}>
+                <button onClick={fetchUsageData} disabled={loading} className="dark:bg-[#1b1e38] dark:hover:bg-[#2a2d4d]">
                     <div className="button-content">
-                        <CiDollar className="dollar-icon" />
+                        <CiDollar className="dollar-icon dark:text-white" />
                         {loading ? 'Calculating...' : 'Calculate Total Bill'}
                     </div>
                 </button>
             </div>
 
-            {error && <p className="error">{error}</p>}
+            {error && <p className="error dark:text-red-400">{error}</p>}
 
             <div className="result-container">
                 <div className="billcontainer">
-                    <div className="usagediv">
+                    <div className="usagediv dark:bg-[#1b1e38] dark:border-gray-600">
                         <div className="heading-container">
-                            <SlEnergy className='energy-icon' />
-                            <p className="heading">Total Usage</p>
+                            <SlEnergy className='energy-icon dark:text-blue-400' />
+                            <p className="heading dark:text-white">Total Usage</p>
                         </div>
-                        <p className="value">{totalUsage} hours</p>
+                        <p className="value dark:text-white">{totalUsage} hours</p>
                     </div>
-                    <div className="Electricitydiv">
+                    <div className="Electricitydiv dark:bg-[#1b1e38] dark:border-gray-600">
                         <div className="heading-container">
-                            <RiBillLine className='bill-icon' />
-                            <p className="heading">Total Electricity Bill</p>
+                            <RiBillLine className='bill-icon dark:text-blue-400' />
+                            <p className="heading dark:text-white">Total Electricity Bill</p>
                         </div>
-                        <p className="value">₹{bill}</p>
+                        <p className="value dark:text-white">₹{bill}</p>
                     </div>
                 </div>
 
                 {dataFetched && ( // Conditionally render the Clear button
-                    <button onClick={clearUsageData} disabled={loading} className="clear-btn">
+                    <button onClick={clearUsageData} disabled={loading} className="clear-btn dark:bg-red-700 dark:hover:bg-red-800">
                         {loading ? 'Clearing...' : 'Clear Data'}
                     </button>
                 )}
